@@ -10,6 +10,10 @@ class CadastroView extends StatefulWidget {
 class _CadastroViewState extends State<CadastroView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Text('My Cat Coffee Bar'),
+      ),
+    );
   }
 }
