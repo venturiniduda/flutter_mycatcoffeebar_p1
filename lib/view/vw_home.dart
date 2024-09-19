@@ -10,6 +10,26 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.all(45.0),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // adicionar uma imagem aqui antes do nome
+              Text('My Cat Coffee Bar'),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'login');
+                },
+                icon: const Icon(Icons.arrow_forward, size: 30.0),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

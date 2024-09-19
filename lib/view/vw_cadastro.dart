@@ -12,7 +12,7 @@ class _CadastroViewState extends State<CadastroView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('My Cat Coffee Bar'),
+        child: Text('Cadastro'),
       ),
     );
   }
