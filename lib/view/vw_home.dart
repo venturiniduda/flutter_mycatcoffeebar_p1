@@ -19,6 +19,7 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // adicionar uma imagem aqui antes do nome
+              Image.asset('lib/images/logo_mycat.png'),
               Text('My Cat Coffee Bar'),
               IconButton(
                 onPressed: () {
