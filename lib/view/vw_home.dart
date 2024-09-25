@@ -19,8 +19,13 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // adicionar uma imagem aqui antes do nome
-              Image.asset('lib/images/logo_mycat.png'),
-              Text('My Cat Coffee Bar'),
+              Image.asset('lib/images/logo.png'),
+              Text(
+                'My Cat Coffee Bar',
+                style: TextStyle(
+                    fontFamily:
+                        'lib/fonts/Reenie_Beanie/ReenieBeanie-Regular.ttf'),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, 'login');
