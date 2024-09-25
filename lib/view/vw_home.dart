@@ -22,9 +22,7 @@ class _HomeViewState extends State<HomeView> {
               Image.asset('lib/images/logo.png'),
               Text(
                 'My Cat Coffee Bar',
-                style: TextStyle(
-                    fontFamily:
-                        'lib/fonts/Reenie_Beanie/ReenieBeanie-Regular.ttf'),
+                style: TextStyle(fontFamily: 'ReenieBeanie-Regular'),
               ),
               IconButton(
                 onPressed: () {
