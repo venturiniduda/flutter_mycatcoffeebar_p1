@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,8 +22,16 @@ class _HomeViewState extends State<HomeView> {
               // adicionar uma imagem aqui antes do nome
               Image.asset('lib/images/logo.png'),
               Text(
-                'My Cat Coffee Bar',
-                style: TextStyle(fontFamily: 'ReenieBeanie-Regular'),
+                'My Cat',
+                style: GoogleFonts.holtwoodOneSc(
+                  fontSize: 50,
+                ),
+              ),
+              Text(
+                'Coffee Bar',
+                style: GoogleFonts.reenieBeanie(
+                  fontSize: 30,
+                ),
               ),
               IconButton(
                 onPressed: () {
