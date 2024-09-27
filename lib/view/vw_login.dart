@@ -68,15 +68,29 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'senha',
+                          (Route<dynamic> route) => true,
+                        );
+                      },
+                      style: ButtonStyle(
+                        iconSize: WidgetStateProperty.all(15),
+                      ),
                       icon: Icon(Icons.key_off),
-                      label: Text('Esqueci a senha'),
-                      iconAlignment: IconAlignment.end,
+                      label: Text(
+                        'Esqueci a senha',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -91,7 +105,7 @@ class _LoginViewState extends State<LoginView> {
                           (Route<dynamic> route) => false,
                         );
                       },
-                      icon: const Icon(Icons.cancel, size: 30.0),
+                      icon: const Icon(Icons.cancel, size: 50.0),
                       color: Colors.red,
                     ),
                     SizedBox(
@@ -105,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
                           (Route<dynamic> route) => false,
                         );
                       },
-                      icon: const Icon(Icons.add_circle, size: 30.0),
+                      icon: const Icon(Icons.add_circle, size: 50.0),
                       color: Colors.blue,
                     ),
                     SizedBox(
@@ -119,7 +133,7 @@ class _LoginViewState extends State<LoginView> {
                           (Route<dynamic> route) => false,
                         );
                       },
-                      icon: const Icon(Icons.check_circle, size: 30.0),
+                      icon: const Icon(Icons.check_circle, size: 50.0),
                       color: Colors.green,
                     ),
                   ],
