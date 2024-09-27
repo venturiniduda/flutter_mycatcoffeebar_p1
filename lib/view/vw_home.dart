@@ -19,7 +19,6 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // adicionar uma imagem aqui antes do nome
               Image.asset('lib/images/logo.png'),
               Text(
                 'My Cat',
