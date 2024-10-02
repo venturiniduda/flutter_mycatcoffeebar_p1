@@ -1,13 +1,19 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/model/md_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cardapio.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_detailsfood.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_home.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_senha.dart';
+import 'package:get_it/get_it.dart';
 
+// Criando a estrutura global
+final getIt = GetIt.instance;
 void main() {
+  getIt.registerSingleton<CadastroModel>(CadastroModel());
+  getIt.registerLazySingleton<CadastroModel>(() => CadastroModel());
   runApp(
     DevicePreview(
       enabled: true,
@@ -18,7 +24,6 @@ void main() {
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
