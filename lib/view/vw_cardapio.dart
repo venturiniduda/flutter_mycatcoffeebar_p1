@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// to do: organizar em um ListView e, nos botoes de categoria, quando clicados,
+// pular para o indice que corresponde a essa categoria
+
 class CardapioView extends StatefulWidget {
   const CardapioView({super.key});
 
@@ -12,7 +15,7 @@ class _CardapioViewState extends State<CardapioView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Cardapio'),
+        child: ListView(),
       ),
     );
   }
