@@ -7,13 +7,13 @@ import 'package:flutter_mycatcoffeebar_p1/view/vw_detailsfood.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_home.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_senha.dart';
-import 'package:get_it/get_it.dart';
+//import 'package:get_it/get_it.dart';
 
 // Criando a estrutura global
-final getIt = GetIt.instance;
+// final getIt = GetIt.instance;
 void main() {
-  getIt.registerSingleton<CadastroModel>(CadastroModel());
-  getIt.registerLazySingleton<CadastroModel>(() => CadastroModel());
+  //getIt.registerSingleton<CadastroModel>(CadastroModel());
+  //getIt.registerLazySingleton<CadastroModel>(() => CadastroModel());
   runApp(
     DevicePreview(
       enabled: true,

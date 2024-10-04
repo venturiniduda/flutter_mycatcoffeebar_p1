@@ -17,6 +17,7 @@ class _CadastroViewState extends State<CadastroView> {
   var txtCel = TextEditingController();
   var txtConta = TextEditingController();
   var txtSenha = TextEditingController();
+  var txtSenhaconf = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +108,7 @@ class _CadastroViewState extends State<CadastroView> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 TextFormField(
                   controller: txtSenha,
@@ -122,6 +123,20 @@ class _CadastroViewState extends State<CadastroView> {
                 ),
                 SizedBox(
                   height: 10,
+                ),
+                TextFormField(
+                  controller: txtSenhaconf,
+                  decoration: InputDecoration(
+                    labelText: 'Confirmação de Senha',
+                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: 'Insira sua senha novamente',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,11 +157,25 @@ class _CadastroViewState extends State<CadastroView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          'cardapio',
-                          (Route<dynamic> route) => false,
-                        );
+                        if (txtNome.text != ' ' &&
+                            txtSobrenome.text != ' ' &&
+                            txtCel.text != ' ' &&
+                            txtCep.text != ' ' &&
+                            txtConta.text != ' ' &&
+                            txtSenha.text != ' ' &&
+                            txtSenhaconf.text != ' ') {
+                          if (txtSenha.text == txtSenhaconf.text) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'cardapio',
+                              (Route<dynamic> route) => false,
+                            );
+                          } else {
+                            // colocar erro de senhas não conferem
+                          }
+                        } else {
+                          // colocar erro de campos obrigatórios não foram preenchidos
+                        }
                       },
                       icon: const Icon(Icons.check_circle, size: 50.0),
                       color: Colors.green,
