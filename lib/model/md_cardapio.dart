@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 class Cardapio {
   final String codigo;
   final String nome;
   final String descricao;
   final String categoria;
-  final Double valor;
+  final double valor;
 
   Cardapio(
     this.codigo,
@@ -14,5 +12,4 @@ class Cardapio {
     this.categoria,
     this.valor,
   );
-
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/model/md_cadastro.dart';
+import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+final DadosService srv = GetIt.instance<DadosService>();
 
 class CadastroView extends StatefulWidget {
   const CadastroView({super.key});
@@ -165,9 +170,17 @@ class _CadastroViewState extends State<CadastroView> {
                             txtSenha.text != ' ' &&
                             txtSenhaconf.text != ' ') {
                           if (txtSenha.text == txtSenhaconf.text) {
+                            // salvando dados do usuário
+                            srv.adicionarUser(CadastroUser(
+                                txtNome.text,
+                                txtSobrenome.text,
+                                txtConta.text,
+                                txtCel.text,
+                                txtSenha.text,
+                                txtCep.text));
                             Navigator.pushNamedAndRemoveUntil(
                               context,
-                              'cardapio',
+                              'login',
                               (Route<dynamic> route) => false,
                             );
                           } else {
