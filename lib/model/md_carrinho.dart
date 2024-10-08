@@ -3,16 +3,17 @@ import 'dart:ffi';
 class Cardapio {
   final String codigo;
   final String nome;
-  final String descricao;
   final String categoria;
-  final Double valor;
+  final Double valor_unit;
+  final Int quantidade;
+  final Double valor_total;
 
   Cardapio(
     this.codigo,
     this.nome,
-    this.descricao,
     this.categoria,
-    this.valor,
+    this.valor_unit,
+    this.quantidade,
+    this.valor_total,
   );
-
 }
