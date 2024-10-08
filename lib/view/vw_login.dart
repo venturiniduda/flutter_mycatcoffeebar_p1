@@ -137,8 +137,7 @@ class _LoginViewState extends State<LoginView> {
                       IconButton(
                         onPressed: () {
                           // comparando dados de login
-                          if (srv.users != null &&
-                              (srv.users[0].email == txtConta.text) &&
+                          if ((srv.users[0].email == txtConta.text) &&
                               (srv.users[0].senha == txtSenha.text)) {
                             Navigator.pushNamedAndRemoveUntil(
                               context,
