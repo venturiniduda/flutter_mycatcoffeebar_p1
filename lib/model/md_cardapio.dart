@@ -1,11 +1,12 @@
-class CadastroUser {
+class Cardapio {
   final String nome;
   final String email;
   final String telefone;
 
-  CadastroUser(
+  Cardapio(
     this.nome,
     this.email,
     this.telefone,
   );
+
 }
