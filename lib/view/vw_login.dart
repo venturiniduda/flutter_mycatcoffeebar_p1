@@ -137,24 +137,34 @@ class _LoginViewState extends State<LoginView> {
                       IconButton(
                         onPressed: () {
                           // comparando dados de login
-                          if ((srv.users[0].email == txtConta.text) &&
-                              (srv.users[0].senha == txtSenha.text)) {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              'cardapio',
-                              (Route<dynamic> route) => false,
-                            );
-                          } else {
-                            //senha incorreta
+                          if (txtConta.text == ' ' && txtSenha.text == ' ') {
                             widget.msgKey.currentState!.showSnackBar(
                               SnackBar(
-                                content: Text(
-                                    'Login ou senha incorretos. Tente novamente!'),
+                                content: Text('Preencha os campos!'),
                                 duration: Duration(seconds: 10),
                               ),
                             );
-                            txtConta.text = ' ';
-                            txtSenha.text = ' ';
+                          } else {
+                            if (srv.users.isNotEmpty &&
+                                (srv.users[0].email == txtConta.text) &&
+                                (srv.users[0].senha == txtSenha.text)) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                'cardapio',
+                                (Route<dynamic> route) => false,
+                              );
+                            } else {
+                              //senha incorreta
+                              widget.msgKey.currentState!.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Login ou senha incorretos. Tente novamente!'),
+                                  duration: Duration(seconds: 10),
+                                ),
+                              );
+                              txtConta.text = ' ';
+                              txtSenha.text = ' ';
+                            }
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),
