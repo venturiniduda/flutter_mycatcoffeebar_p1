@@ -157,7 +157,7 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           // VERIFICAÇÃO DADOS LOGIN
                           if (loginKey.currentState!.validate()) {
-                            if (srv.users.isNotEmpty &&
+                            if (srv.retornarUser(txtConta.text) != null &&
                                 (srv.users[0].email == txtConta.text) &&
                                 (srv.users[0].senha == txtSenha.text)) {
                               Navigator.pushNamedAndRemoveUntil(
