@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 
 // to do:
 // adicionar "legenda" quando passamos o mouse nos botões
@@ -52,30 +53,48 @@ class _LoginViewState extends State<LoginView> {
                     height: 10,
                   ),
                   TextFormField(
-                    controller: txtConta,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Insira seu email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                      controller: txtConta,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(color: Colors.black),
+                        hintText: 'Insira seu email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                       ),
-                    ),
-                  ),
+                      validator: (txtConta) {
+                        if (txtConta == null) {
+                          return 'Informe o Email';
+                        } else if (txtConta.isEmpty) {
+                          return 'Informe o Email';
+                        } else {
+                          if (!EmailValidator.validate(txtConta)) {
+                            return 'Digite um Email válido!';
+                          }
+                          return null;
+                        }
+                      }),
                   SizedBox(
                     height: 15,
                   ),
                   TextFormField(
-                    controller: txtSenha,
-                    decoration: InputDecoration(
-                      labelText: 'Senha',
-                      labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Insira sua senha',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                      controller: txtSenha,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        labelStyle: TextStyle(color: Colors.black),
+                        hintText: 'Insira sua senha',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                       ),
-                    ),
-                  ),
+                      validator: (txtSenha) {
+                        if (txtSenha == null) {
+                          return 'Informe a Senha';
+                        } else if (txtSenha.isEmpty) {
+                          return 'Informe a Senha';
+                        }
+                        return null;
+                      }),
                   SizedBox(
                     height: 10,
                   ),
@@ -136,15 +155,8 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       IconButton(
                         onPressed: () {
-                          // comparando dados de login
-                          if (txtConta.text == ' ' && txtSenha.text == ' ') {
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                content: Text('Preencha os campos!'),
-                                duration: Duration(seconds: 10),
-                              ),
-                            );
-                          } else {
+                          // VERIFICAÇÃO DADOS LOGIN
+                          if (loginKey.currentState!.validate()) {
                             if (srv.users.isNotEmpty &&
                                 (srv.users[0].email == txtConta.text) &&
                                 (srv.users[0].senha == txtSenha.text)) {
@@ -153,17 +165,26 @@ class _LoginViewState extends State<LoginView> {
                                 'cardapio',
                                 (Route<dynamic> route) => false,
                               );
-                            } else {
+                            } else if (srv.users.isNotEmpty &&
+                                    (srv.users[0].email != txtConta.text) ||
+                                (srv.users[0].senha != txtSenha.text)) {
                               //senha incorreta
                               widget.msgKey.currentState!.showSnackBar(
                                 SnackBar(
                                   content: Text(
                                       'Login ou senha incorretos. Tente novamente!'),
-                                  duration: Duration(seconds: 10),
+                                  duration: Duration(seconds: 3),
                                 ),
                               );
-                              txtConta.text = ' ';
-                              txtSenha.text = ' ';
+                            } else if (srv.users.isEmpty ||
+                                (!srv.users.contains(txtConta.text))) {
+                              //sem usuários cadastrados
+                              widget.msgKey.currentState!.showSnackBar(
+                                SnackBar(
+                                  content: Text('Usuário não cadastrado.'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
                             }
                           }
                         },

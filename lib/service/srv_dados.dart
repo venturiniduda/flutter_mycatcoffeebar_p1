@@ -13,8 +13,17 @@ class DadosService {
     users.removeAt(index);
   }
 
-  CadastroUser retornarUser(id) {
-    return users[id];
+  CadastroUser? retornarUser(email) {
+    for (var email_user in users) {
+      if (email_user.email == email) {
+        return email_user; // Usuário encontrado
+      }
+    }
+    return null;
+  }
+
+  bool existeUser(email) {
+    return users.contains(email);
   }
 
   void adicionarCardapio(Cardapio item) {
