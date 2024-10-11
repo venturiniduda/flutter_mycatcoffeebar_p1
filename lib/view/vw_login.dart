@@ -157,27 +157,8 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           // VERIFICAÇÃO DADOS LOGIN
                           if (loginKey.currentState!.validate()) {
-                            if (srv.retornarUser(txtConta.text) != null &&
-                                (srv.users[0].email == txtConta.text) &&
-                                (srv.users[0].senha == txtSenha.text)) {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                'cardapio',
-                                (Route<dynamic> route) => false,
-                              );
-                            } else if (srv.users.isNotEmpty &&
-                                    (srv.users[0].email != txtConta.text) ||
-                                (srv.users[0].senha != txtSenha.text)) {
-                              //senha incorreta
-                              widget.msgKey.currentState!.showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'Login ou senha incorretos. Tente novamente!'),
-                                  duration: Duration(seconds: 3),
-                                ),
-                              );
-                            } else if (srv.users.isEmpty ||
-                                (!srv.users.contains(txtConta.text))) {
+                            final usuario = srv.retornarUser(txtConta.text);
+                            if (usuario == null) {
                               //sem usuários cadastrados
                               widget.msgKey.currentState!.showSnackBar(
                                 SnackBar(
@@ -185,6 +166,24 @@ class _LoginViewState extends State<LoginView> {
                                   duration: Duration(seconds: 3),
                                 ),
                               );
+                            } else {
+                              if ((usuario.email != txtConta.text) ||
+                                  (usuario.senha != txtSenha.text)) {
+                                //senha incorreta
+                                widget.msgKey.currentState!.showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Login ou senha incorretos. Tente novamente!'),
+                                    duration: Duration(seconds: 3),
+                                  ),
+                                );
+                              } else {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  'cardapio',
+                                  (Route<dynamic> route) => false,
+                                );
+                              }
                             }
                           }
                         },

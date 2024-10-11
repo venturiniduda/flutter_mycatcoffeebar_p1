@@ -14,9 +14,9 @@ class DadosService {
   }
 
   CadastroUser? retornarUser(email) {
-    for (var email_user in users) {
-      if (email_user.email == email) {
-        return email_user; // Usuário encontrado
+    for (var emailUser in users) {
+      if (emailUser.email == email) {
+        return emailUser; // Usuário encontrado
       }
     }
     return null;
