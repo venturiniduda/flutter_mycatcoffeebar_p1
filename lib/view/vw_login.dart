@@ -4,10 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 
-// to do:
-// adicionar "legenda" quando passamos o mouse nos botões
-// adicionar loop (?) para achar dado correspondente do usuário
-
 final DadosService srv = GetIt.instance<DadosService>();
 
 class LoginView extends StatefulWidget {
@@ -135,6 +131,7 @@ class _LoginViewState extends State<LoginView> {
                         },
                         icon: const Icon(Icons.cancel, size: 50.0),
                         color: Colors.red,
+                        tooltip: 'Cancelar',
                       ),
                       SizedBox(
                         height: 15,
@@ -149,6 +146,7 @@ class _LoginViewState extends State<LoginView> {
                         },
                         icon: const Icon(Icons.add_circle, size: 50.0),
                         color: Colors.blue,
+                        tooltip: 'Cadastrar Usuário',
                       ),
                       SizedBox(
                         height: 15,
@@ -189,6 +187,7 @@ class _LoginViewState extends State<LoginView> {
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),
                         color: Colors.green,
+                        tooltip: 'Realizar o Login',
                       ),
                     ],
                   ),
