@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cardapio.dart';
+import 'package:flutter_mycatcoffeebar_p1/view/vw_carrinho.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_detailsfood.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_home.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_login.dart';
@@ -40,7 +41,8 @@ class MainApp extends StatelessWidget {
         'cadastro': (context) => CadastroView(),
         'senha': (context) => SenhaView(),
         'cardapio': (context) => CardapioView(),
-        'detailsfood': (context) => DetailsFoodView(),
+        'detalhes': (context) => DetailsFoodView(),
+        'carrinho': (context) => CarrinhoView(),
       },
       home: Scaffold(
         body: Center(
