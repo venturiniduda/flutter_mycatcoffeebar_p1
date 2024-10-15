@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         'cadastro': (context) => CadastroView(),
         'senha': (context) => SenhaView(),
         'cardapio': (context) => CardapioView(),
-        'detalhes': (context) => DetailsFoodView(),
+        'detalhes': (context) => DetalhesView(),
         'carrinho': (context) => CarrinhoView(),
       },
       home: Scaffold(

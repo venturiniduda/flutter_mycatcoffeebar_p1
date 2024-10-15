@@ -6,8 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../service/srv_dados.dart';
 
-// to do: organizar em um ListView e, nos botoes de categoria, quando clicados,
-// pular para o indice que corresponde a essa categoria
+// to do:
+// - adicionar imagem nos itens
+// - checar funcionamento detalhes do item
 
 final DadosService srv = GetIt.instance<DadosService>();
 
