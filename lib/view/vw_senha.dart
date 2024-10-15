@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// to do: modificar senha na estrutura global
+
 class SenhaView extends StatefulWidget {
   SenhaView({super.key});
 
