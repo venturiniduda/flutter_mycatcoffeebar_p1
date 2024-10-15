@@ -245,14 +245,6 @@ class _CadastroViewState extends State<CadastroView> {
                               );
                               txtSenhaconf.text = ' ';
                             }
-                          } else {
-                            // colocar erro de campos obrigatórios não foram preenchidos
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                content: Text('Há campos vazios...'),
-                                duration: Duration(seconds: 5),
-                              ),
-                            );
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),

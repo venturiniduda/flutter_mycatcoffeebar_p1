@@ -1,9 +1,11 @@
 import '../model/md_cadastro.dart';
 import '../model/md_cardapio.dart';
+import '../model/md_carrinho.dart';
 
 class DadosService {
   List<CadastroUser> users = [];
   List<Cardapio> cardapio = [];
+  List<Carrinho> carrinho = [];
 
   void adicionarUser(CadastroUser user) {
     users.add(user);
@@ -36,5 +38,9 @@ class DadosService {
 
   Cardapio retornarCardapio(id) {
     return cardapio[id];
+  }
+
+  void adicionarCarrinho(Carrinho item) {
+    carrinho.add(item);
   }
 }
