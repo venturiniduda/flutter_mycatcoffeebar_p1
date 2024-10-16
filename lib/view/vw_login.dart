@@ -4,10 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 
-// to do:
-// - antes de chamar a tela da senha, verificar se o usuario existe
-// - antes de chamar a tela, verificar se APENAS o campo senha está preenchido
-
 final DadosService srv = GetIt.instance<DadosService>();
 
 class LoginView extends StatefulWidget {
@@ -103,7 +99,21 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       TextButton.icon(
                         onPressed: () {
-                          if (loginKey.currentState!.validate()) {
+                          if (txtConta.text.isEmpty) {
+                            widget.msgKey.currentState!.showSnackBar(
+                              SnackBar(
+                                content: Text('Informe o email.'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          } else if (!srv.existeUser(txtConta.text)) {
+                            widget.msgKey.currentState!.showSnackBar(
+                              SnackBar(
+                                content: Text('Insira um email cadastrado.'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          } else {
                             Navigator.pushNamed(context, 'senha',
                                 arguments: txtConta.text);
                           }

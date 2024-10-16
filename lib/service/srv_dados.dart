@@ -35,7 +35,7 @@ class DadosService {
   }
 
   bool existeUser(email) {
-    return users.contains(email);
+    return users.any((user) => user.email == email);
   }
 
   void adicionarCardapio(Cardapio item) {
