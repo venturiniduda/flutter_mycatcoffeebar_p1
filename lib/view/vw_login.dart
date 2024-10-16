@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/model/md_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +24,11 @@ class _LoginViewState extends State<LoginView> {
   var txtSenha = TextEditingController();
 
   @override
+  void initState() {
+    CadastroUser.preencher();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: widget.msgKey,

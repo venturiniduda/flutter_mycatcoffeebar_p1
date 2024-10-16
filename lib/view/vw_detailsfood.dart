@@ -7,12 +7,9 @@ import 'package:intl/intl.dart';
 import '../model/md_carrinho.dart';
 
 // to do:
-// - formatar style
 // - adicionar imagem (deve ser no topo da tela)
-// - nome do item logo abaixo da imagem
 // - descrição do item que inclua informações sobre ingredientes,
 // preparo, características especiais e quaisquer outras informações relevantes.
-// - preço deve estar destacado !!!
 // - adicionar funcionalidade adicionar o item ao pedido (deve ser na parte inferior da tela)
 // - adicionar confirmação de item adicionado ao pedido
 
@@ -37,12 +34,17 @@ class _DetalhesViewState extends State<DetalhesView> {
         padding: EdgeInsets.all(20),
         child: ListView(
           children: [
-            Image.asset(
-              srv.cardapio[idCardapio].imagem,
-              height: 250,
-              width: 350,
+            ClipOval(
+              child: Center(
+                child: Image.asset(
+                  srv.cardapio[idCardapio].imagem,
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 10),
             Text(
               srv.cardapio[idCardapio].nome,
               style: GoogleFonts.reenieBeanie(fontSize: 45, letterSpacing: 0.5),
@@ -63,7 +65,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.undo, size: 45.0),
+                  icon: const Icon(Icons.arrow_circle_left, size: 45.0),
                   color: Colors.brown.shade500,
                   tooltip: 'Voltar',
                 ),
@@ -77,7 +79,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                         1));
                   },
                   icon: const Icon(Icons.add_circle, size: 45.0),
-                  color: Colors.brown.shade500,
+                  color: Colors.blue.shade500,
                   tooltip: 'Adicionar ao Pedido',
                 ),
               ],

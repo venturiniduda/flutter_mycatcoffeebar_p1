@@ -1,3 +1,8 @@
+import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
+import 'package:get_it/get_it.dart';
+
+final DadosService srv = GetIt.instance<DadosService>();
+
 class CadastroUser {
   String nome;
   String sobrenome;
@@ -14,4 +19,9 @@ class CadastroUser {
     this.senha,
     this.cep,
   );
+
+  static preencher() {
+    srv.adicionarUser(
+        CadastroUser('Admin', '', 'admin@gmail.com', '0', 'admin', '0'));
+  }
 }

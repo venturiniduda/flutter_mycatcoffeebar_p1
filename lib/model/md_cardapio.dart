@@ -157,52 +157,52 @@ class Cardapio {
     srv.adicionarCardapio(Cardapio(
         '020',
         'Bolo de Chocolate',
-        'Bolo fofo de chocolate coberto com ganache cremoso.',
+        'Bolo fofo de chocolate coberto com ganache cremosa.',
         'Doce',
         14.00,
-        'lib/images/cardapio/ftbolodechocolate.jpeg'));
+        'lib/images/cardapio/ftbolodechocolate.jpg'));
     srv.adicionarCardapio(Cardapio(
         '021',
         'Bolo de Cenoura',
         'Bolo de cenoura fofinho com cobertura de chocolate.',
         'Doce',
         14.00,
-        'lib/images/cardapio/ftbolodecenoura.jpeg'));
+        'lib/images/cardapio/ftbolodecenoura.jpg'));
     srv.adicionarCardapio(Cardapio(
         '022',
         'Bolo de Coco',
         'Bolo de coco molhadinho com cobertura de coco ralado.',
         'Doce',
         13.00,
-        'lib/images/cardapio/ftbolodecoco.jpeg'));
+        'lib/images/cardapio/ftbolodecoco.jpg'));
     srv.adicionarCardapio(Cardapio(
         '023',
         'Bolo de Limão',
         'Bolo leve de limão com calda cítrica.',
         'Doce',
         12.50,
-        'lib/images/cardapio/ftbolodelimao.jpeg'));
+        'lib/images/cardapio/ftbolodelimao.jpg'));
     srv.adicionarCardapio(Cardapio(
         '024',
         'Bolo de Fubá',
         'Tradicional bolo de fubá, macio e saboroso.',
         'Doce',
         11.00,
-        'lib/images/cardapio/ftbolodefuba.jpeg'));
+        'lib/images/cardapio/ftbolodefuba.jpg'));
     srv.adicionarCardapio(Cardapio(
         '025',
         'Bolo de Morango',
         'Bolo de morango com recheio cremoso de chantilly.',
         'Doce',
         15.00,
-        'lib/images/cardapio/ftbolomorango.jpeg'));
+        'lib/images/cardapio/ftbolodemorango.jpg'));
     srv.adicionarCardapio(Cardapio(
         '026',
         'Torta de Limão',
         'Torta leve de limão com merengue dourado.',
         'Doce',
         15.50,
-        'lib/images/cardapio/fttortadelimao.jpeg'));
+        'lib/images/cardapio/fttortadelimao.jpg'));
     srv.adicionarCardapio(Cardapio(
         '027',
         'Pudim',

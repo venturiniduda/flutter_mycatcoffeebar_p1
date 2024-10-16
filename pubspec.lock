@@ -45,10 +45,10 @@ packages:
     dependency: transitive
     description:
       name: crypto
-      sha256: ec30d999af904f33454ba22ed9a86162b35e52b44ac4807d1d93c288041d7d27
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "3.0.6"
   device_frame:
     dependency: transitive
     description:
@@ -69,10 +69,10 @@ packages:
     dependency: "direct dev"
     description:
       name: email_validator
-      sha256: e9a90f27ab2b915a27d7f9c2a7ddda5dd752d6942616ee83529b686fc086221b
+      sha256: b19aa5d92fdd76fbc65112060c94d45ba855105a28bb6e462de7ff03b12fa1fb
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.17"
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -93,10 +93,10 @@ packages:
     dependency: transitive
     description:
       name: file
-      sha256: "5fc22d7c25582e38ad9a8515372cd9a93834027aacf1801cf01164dac0ffa08c"
+      sha256: a3b4f84adafef897088c160faf7dfffb7696046cb13ae90b508c2cbc95d3b8d4
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -106,10 +106,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: "3f41d009ba7172d5ff9be5f6e6e6abb4300e263aab8866d2a0842ed2a70f8f0c"
+      sha256: "5398f14efa795ffb7a33e9b6a08798b26a180edac4ad7db3f231e40f82ce11e1"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   flutter_localizations:
     dependency: transitive
     description: flutter
@@ -209,10 +209,10 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: "976c774dd944a42e83e2467f4cc670daef7eed6295b10b36ae8c85bcbf828235"
+      sha256: "3315600f3fb3b135be672bf4a178c55f274bebe368325ae18462c89ac1e3b413"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   matcher:
     dependency: transitive
     description:
@@ -265,10 +265,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "6f01f8e37ec30b07bc424b4deabac37cacb1bc7e2e515ad74486039918a37eb7"
+      sha256: c464428172cb986b758c6d1724c603097febb8fb855aa265aeecc9280c294d4a
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.10"
+    version: "2.2.12"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -337,18 +337,18 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "480ba4345773f56acda9abf5f50bd966f581dac5d514e5fc4a18c62976bbba7e"
+      sha256: "3b9febd815c9ca29c9e3520d50ec32f49157711e143b7a4ca039eb87e8ade5ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   shared_preferences_foundation:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: c4b35f6cb8f63c147312c054ce7c2254c8066745125264f0c88739c417fc9d9f
+      sha256: "07e050c7cd39bad516f8d64c455f04508d09df104be326d8c02551590a0d513d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.2"
+    version: "2.5.3"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -462,18 +462,18 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
+      sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   xdg_directories:
     dependency: transitive
     description:
       name: xdg_directories
-      sha256: faea9dee56b520b55a566385b84f2e8de55e7496104adada9962e0bd11bcff1d
+      sha256: "7a3f37b05d989967cdddcbb571f1ea834867ae2faa29725fd085180e0883aa15"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.1.0"
 sdks:
   dart: ">=3.5.0 <4.0.0"
-  flutter: ">=3.22.0"
+  flutter: ">=3.24.0"
