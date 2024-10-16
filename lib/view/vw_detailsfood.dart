@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_cardapio.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 // to do:
 // - formatar style
-// - adicionar imagem
+// - adicionar imagem (deve ser no topo da tela)
+// - nome do item logo abaixo da imagem
+// - descrição do item que inclua informações sobre ingredientes,
+// preparo, características especiais e quaisquer outras informações relevantes.
+// - preço deve estar destacado !!!
+// - adicionar funcionalidade adicionar o item ao pedido (deve ser na parte inferior da tela)
+// - adicionar confirmação de item adicionado ao pedido
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -61,7 +67,7 @@ class _DetalhesViewState extends State<DetalhesView> {
 
   exibirCampoTexto(label, texto) {
     return ListTile(
-      title: Text(label, style: TextStyle(fontSize: 12)),
+      title: Text(label, style: GoogleFonts.reenieBeanie(fontSize: 50)),
       subtitle: Text(texto, style: TextStyle(fontSize: 22)),
     );
   }

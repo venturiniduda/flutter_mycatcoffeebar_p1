@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// to do: modificar senha na estrutura global
+final DadosService srv = GetIt.instance<DadosService>();
+
 class SenhaView extends StatefulWidget {
   SenhaView({super.key});
 
@@ -20,6 +23,8 @@ class _SenhaViewState extends State<SenhaView> {
 
   @override
   Widget build(BuildContext context) {
+    final String email = ModalRoute.of(context)!.settings.arguments as String;
+
     return ScaffoldMessenger(
       key: widget.msgKey,
       child: Scaffold(
@@ -99,21 +104,25 @@ class _SenhaViewState extends State<SenhaView> {
                               ),
                             );
                           } else {
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    'A senha foi alterada com sucesso! Retornando para o Login...'),
-                                duration: Duration(seconds: 10),
-                              ),
-                            );
-                            // to do: adicionar salvar senha na estrutura global
-                            Timer(Duration(seconds: 2), () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                'login',
-                                (Route<dynamic> route) => false,
+                            // alterando a senha na estrutura global
+                            var index = srv.obterIndexPorEmail(email);
+                            if (index != null) {
+                              srv.users[index].senha = txtSenhaNew.text;
+                              widget.msgKey.currentState!.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'A senha foi alterada com sucesso! Retornando para o Login...'),
+                                  duration: Duration(seconds: 10),
+                                ),
                               );
-                            });
+                              Timer(Duration(seconds: 2), () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  'login',
+                                  (Route<dynamic> route) => false,
+                                );
+                              });
+                            }
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),

@@ -25,16 +25,21 @@ class DadosService {
     return null;
   }
 
+  int? obterIndexPorEmail(String email) {
+    for (int i = 0; i < users.length; i++) {
+      if (users[i].email == email) {
+        return i;
+      }
+    }
+    return null;
+  }
+
   bool existeUser(email) {
     return users.contains(email);
   }
 
   void adicionarCardapio(Cardapio item) {
     cardapio.add(item);
-  }
-
-  void removerCardapio(index) {
-    cardapio.removeAt(index);
   }
 
   Cardapio retornarCardapio(id) {
@@ -44,5 +49,9 @@ class DadosService {
   void adicionarCarrinho(Carrinho item) {
     carrinho.add(item);
     valorTotal = valorTotal + item.valorunit;
+  }
+
+  void removerCarrinho(index) {
+    carrinho.removeAt(index);
   }
 }

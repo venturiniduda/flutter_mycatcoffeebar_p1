@@ -3,6 +3,15 @@ import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
+// to do:
+// - titulo: resumo do pedido
+// - adicionar funcionalidades de remover ou adicionar itens ao pedido (altera somente a quantidade)
+//    -> a soma da quantidade deve ser feita na srv, verificando se ja existe o item no carrinho com o mesmo codigo, se sim adiciona no msm
+// - adicionar funcionalidade de remover completamente o item do pedido
+// - deve ter um valor unitario e o total de cada item (unitario x qntd)
+// - deve ter o valor final do pedido
+// - deve ter um botão confirmar pedido, e uma mensagem depois de clicar no botão
+
 final DadosService srv = GetIt.instance<DadosService>();
 
 class CarrinhoView extends StatefulWidget {

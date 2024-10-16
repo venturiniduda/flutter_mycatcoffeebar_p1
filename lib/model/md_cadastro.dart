@@ -1,10 +1,10 @@
 class CadastroUser {
-  final String nome;
-  final String sobrenome;
-  final String email;
-  final String celular;
-  final String senha;
-  final String cep;
+  String nome;
+  String sobrenome;
+  String email;
+  String celular;
+  String senha;
+  String cep;
 
   CadastroUser(
     this.nome,
