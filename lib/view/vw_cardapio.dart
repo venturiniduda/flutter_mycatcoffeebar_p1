@@ -9,6 +9,7 @@ import '../service/srv_dados.dart';
 // to do:
 // - adicionar imagem nos itens
 // - checar funcionamento detalhes do item
+// - adicionar mensagem de sucesso ao adicionar a compra ao carrinho
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -21,13 +22,6 @@ class CardapioView extends StatefulWidget {
 
 class _CardapioViewState extends State<CardapioView> {
   final ScrollController _scrollController = ScrollController();
-
-  List<String> categorias = [
-    'Entradas',
-    'Pratos Principais',
-    'Sobremesa',
-    'Bebidas'
-  ];
 
   double itemHeight = 105.0;
   String legenda = ' ';

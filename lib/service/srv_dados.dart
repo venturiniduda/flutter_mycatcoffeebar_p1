@@ -6,6 +6,7 @@ class DadosService {
   List<CadastroUser> users = [];
   List<Cardapio> cardapio = [];
   List<Carrinho> carrinho = [];
+  double valorTotal = 0;
 
   void adicionarUser(CadastroUser user) {
     users.add(user);
@@ -42,5 +43,6 @@ class DadosService {
 
   void adicionarCarrinho(Carrinho item) {
     carrinho.add(item);
+    valorTotal = valorTotal + item.valorunit;
   }
 }
