@@ -3,7 +3,8 @@ class Carrinho {
   final String nome;
   final String categoria;
   final double valorunit;
-  final int quantidade;
+  int quantidade;
+  double valorTotalItm;
 
   Carrinho(
     this.codigo,
@@ -11,5 +12,6 @@ class Carrinho {
     this.categoria,
     this.valorunit,
     this.quantidade,
+    this.valorTotalItm,
   );
 }

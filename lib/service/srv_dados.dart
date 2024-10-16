@@ -8,6 +8,7 @@ class DadosService {
   List<Carrinho> carrinho = [];
   double valorTotal = 0;
 
+  // FUNÇÕES PARA OS USUÁRIOS
   void adicionarUser(CadastroUser user) {
     users.add(user);
   }
@@ -38,6 +39,11 @@ class DadosService {
     return users.any((user) => user.email == email);
   }
 
+  // FUNÇÕES PARA O CARDÁPIO
+  void preencherCardapio() {
+    Cardapio.preencher();
+  }
+
   void adicionarCardapio(Cardapio item) {
     cardapio.add(item);
   }
@@ -46,12 +52,40 @@ class DadosService {
     return cardapio[id];
   }
 
+  // FUNÇÕES PARA O CARRINHO DE PEDIDO
+  int? obterIndexItem(String codigo) {
+    for (int i = 0; i < carrinho.length; i++) {
+      if (carrinho[i].codigo == codigo) {
+        return i;
+      }
+    }
+    return null;
+  }
+
   void adicionarCarrinho(Carrinho item) {
-    carrinho.add(item);
+    var index = obterIndexItem(item.codigo);
+    if (index == null) {
+      item.valorTotalItm = item.valorunit;
+      carrinho.add(item);
+    } else {
+      carrinho[index].quantidade = carrinho[index].quantidade + 1;
+      carrinho[index].valorTotalItm =
+          carrinho[index].valorunit * carrinho[index].quantidade;
+    }
     valorTotal = valorTotal + item.valorunit;
   }
 
-  void removerCarrinho(index) {
+  void removerUnidCarrinho(index) {
+    if (carrinho[index].quantidade == 1) {
+      removerItmCarrinho(index);
+    } else {
+      carrinho[index].quantidade = carrinho[index].quantidade - 1;
+      carrinho[index].valorTotalItm =
+          carrinho[index].valorunit * carrinho[index].quantidade;
+    }
+  }
+
+  void removerItmCarrinho(index) {
     carrinho.removeAt(index);
   }
 }

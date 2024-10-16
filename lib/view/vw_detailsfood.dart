@@ -10,8 +10,6 @@ import '../model/md_carrinho.dart';
 // - adicionar imagem (deve ser no topo da tela)
 // - descrição do item que inclua informações sobre ingredientes,
 // preparo, características especiais e quaisquer outras informações relevantes.
-// - adicionar funcionalidade adicionar o item ao pedido (deve ser na parte inferior da tela)
-// - adicionar confirmação de item adicionado ao pedido
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -76,7 +74,15 @@ class _DetalhesViewState extends State<DetalhesView> {
                         srv.cardapio[idCardapio].nome,
                         srv.cardapio[idCardapio].categoria,
                         srv.cardapio[idCardapio].valor,
-                        1));
+                        1,
+                        0));
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            'Produto adicionado com sucesso ao pedido!',
+                            style: TextStyle(fontSize: 15)),
+                        duration: Duration(seconds: 2),
+                        backgroundColor: Colors.black54));
                   },
                   icon: const Icon(Icons.add_circle, size: 45.0),
                   color: Colors.blue.shade500,

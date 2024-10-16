@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_cardapio.dart';
 import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +7,7 @@ import '../service/srv_dados.dart';
 
 // to do:
 // - adicionar imagem nos itens
-// - checar funcionamento detalhes do item
-// - adicionar mensagem de sucesso ao adicionar a compra ao carrinho
+// - adicionar categoria em cima do nome do item em fonte reduzida
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -42,7 +40,7 @@ class _CardapioViewState extends State<CardapioView> {
 
   @override
   void initState() {
-    Cardapio.preencher();
+    srv.preencherCardapio();
     super.initState();
   }
 
@@ -52,7 +50,8 @@ class _CardapioViewState extends State<CardapioView> {
         title: Text(
           'MENU',
           style: GoogleFonts.holtwoodOneSc(
-            fontSize: 25,
+            fontSize: 20,
+            color: Colors.black
           ),
         ),
         backgroundColor: Colors.brown.shade300,
@@ -206,7 +205,15 @@ class _CardapioViewState extends State<CardapioView> {
                                     srv.cardapio[index].nome,
                                     srv.cardapio[index].categoria,
                                     srv.cardapio[index].valor,
-                                    1));
+                                    1,
+                                    0));
+
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Produto adicionado com sucesso ao pedido!',
+                                        style: TextStyle(fontSize: 15)),
+                                    duration: Duration(seconds: 2),
+                                    backgroundColor: Colors.black54));
                               },
                               child: Icon(Icons.add_shopping_cart),
                             ),
