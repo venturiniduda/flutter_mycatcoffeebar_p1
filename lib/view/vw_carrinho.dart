@@ -50,6 +50,10 @@ class _CarrinhoViewState extends State<CarrinhoView> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
+            Text('Itens',
+                style: GoogleFonts.reenieBeanie(
+                  fontSize: 35,
+                )),
             ListView.builder(
               shrinkWrap: true,
               itemCount: srv.carrinho.length,
