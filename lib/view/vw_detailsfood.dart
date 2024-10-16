@@ -4,6 +4,8 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../model/md_carrinho.dart';
+
 // to do:
 // - formatar style
 // - adicionar imagem (deve ser no topo da tela)
@@ -30,34 +32,55 @@ class _DetalhesViewState extends State<DetalhesView> {
     srv.retornarCardapio(idCardapio);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(srv.cardapio[idCardapio].nome,
-            style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.purple.shade900,
-        automaticallyImplyLeading: false,
-      ),
-      backgroundColor: Colors.purple.shade50,
+      backgroundColor: Colors.brown.shade100,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: ListView(
           children: [
-            exibirCampoTexto('Nome', srv.cardapio[idCardapio].nome),
-            exibirCampoTexto('Descrição', srv.cardapio[idCardapio].descricao),
+            Image.asset(
+              srv.cardapio[idCardapio].imagem,
+              height: 250,
+              width: 350,
+            ),
+            SizedBox(width: 8),
+            Text(
+              srv.cardapio[idCardapio].nome,
+              style: GoogleFonts.reenieBeanie(fontSize: 45, letterSpacing: 0.5),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(width: 8),
+            exibirCampoTexto(
+                'Mais detalhes', srv.cardapio[idCardapio].descricao),
             exibirCampoTexto(
                 'Valor',
                 NumberFormat('#,##0.00')
                     .format(srv.cardapio[idCardapio].valor.toDouble())),
             SizedBox(height: 30),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                foregroundColor: Colors.purple.shade900,
-                backgroundColor: Colors.purple.shade50,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Voltar'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.undo, size: 45.0),
+                  color: Colors.brown.shade500,
+                  tooltip: 'Voltar',
+                ),
+                IconButton(
+                  onPressed: () {
+                    srv.adicionarCarrinho(Carrinho(
+                        srv.cardapio[idCardapio].codigo,
+                        srv.cardapio[idCardapio].nome,
+                        srv.cardapio[idCardapio].categoria,
+                        srv.cardapio[idCardapio].valor,
+                        1));
+                  },
+                  icon: const Icon(Icons.add_circle, size: 45.0),
+                  color: Colors.brown.shade500,
+                  tooltip: 'Adicionar ao Pedido',
+                ),
+              ],
             ),
           ],
         ),
@@ -67,8 +90,11 @@ class _DetalhesViewState extends State<DetalhesView> {
 
   exibirCampoTexto(label, texto) {
     return ListTile(
-      title: Text(label, style: GoogleFonts.reenieBeanie(fontSize: 50)),
-      subtitle: Text(texto, style: TextStyle(fontSize: 22)),
+      title: Text(label,
+          style: GoogleFonts.reenieBeanie(
+              fontSize: 25, color: Colors.brown.shade700)),
+      subtitle:
+          Text(texto, style: TextStyle(fontSize: 25, color: Colors.black)),
     );
   }
 }

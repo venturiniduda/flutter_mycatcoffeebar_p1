@@ -27,414 +27,414 @@ class Cardapio {
     srv.adicionarCardapio(Cardapio(
         '001',
         'Pão de Queijo',
-        'Fofinhos e quentinhos, recheados com queijo minas',
+        'Fofinhos e quentinhos, recheados com queijo minas.',
         'Entrada',
         8.00,
-        '/lib/images/cardapio/ft_pao_de_queijo.jpg'));
+        'lib/images/cardapio/ftpaodequeijo.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '002',
         'Coxinha',
-        'Deliciosa coxinha feita com massa leve, recheada com frango desfiado',
+        'Deliciosa coxinha feita com massa leve, recheada com frango desfiado.',
         'Entrada',
         6.00,
-        '/lib/images/cardapio/ft_coxinha.jpg'));
+        'lib/images/cardapio/ftcoxinha.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '003',
         'Bolinho de Bacalhau',
-        'Crocante por fora, macio por dentro, com sabor intenso de bacalhau',
+        'Crocante por fora, macio por dentro, com sabor intenso de bacalhau.',
         'Entrada',
         10.50,
-        '/lib/images/cardapio/ft_bolinho_de_bacalhau.jpg'));
+        'lib/images/cardapio/ftbolinhodebacalhau.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '004',
         'Torrada com Abacate',
-        'Torrada crocante com abacate fresco, limão e temperos',
+        'Torrada crocante com abacate fresco, limão e temperos.',
         'Entrada',
         12.00,
-        '/lib/images/cardapio/ft_torrada_com_abacate.jpg'));
+        'lib/images/cardapio/fttorradacomabacate.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '005',
         'Mini Salada',
-        'Salada leve de folhas verdes, tomate e molho especial',
+        'Salada leve de folhas verdes, tomate e molho especial.',
         'Entrada',
         9.00,
-        '/lib/images/cardapio/ft_mini_salad.jpg'));
+        'lib/images/cardapio/ftminisalada.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '006',
         'Quiche',
-        'Quiche de espinafre e queijo, assada até ficar dourada',
+        'Quiche de espinafre e queijo, assada até ficar dourada.',
         'Entrada',
         15.00,
-        '/lib/images/cardapio/ft_quiche.jpg'));
+        'lib/images/cardapio/ftquiche.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '007',
         'Salada Caesar',
-        'Clássica salada Caesar com frango grelhado e crocantes croutons',
+        'Clássica salada Caesar com frango grelhado e crocantes croutons.',
         'Entrada',
         22.50,
-        '/lib/images/cardapio/ft_salad_caesar.jpg'));
+        'lib/images/cardapio/ftsaladcaesar.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '008',
         'Nachos',
-        'Tortilhas crocantes com guacamole, salsa e queijo derretido',
+        'Tortilhas crocantes com guacamole, salsa e queijo derretido.',
         'Entrada',
         12.50,
-        '/lib/images/cardapio/ft_nachos.jpg'));
+        'lib/images/cardapio/ftnachos.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '009',
         'Tapioca',
-        'Tapioca recheada com queijo e presunto, uma combinação irresistível',
+        'Tapioca recheada com queijo e presunto, uma combinação irresistível.',
         'Entrada',
         12.00,
-        '/lib/images/cardapio/ft_tapioca.jpg'));
+        'lib/images/cardapio/fttapioca.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '010',
         'Bruschetta',
-        'Fatias de pão italiano cobertas com tomate fresco, manjericão e azeite',
+        'Fatias de pão italiano cobertas com tomate fresco, manjericão e azeite.',
         'Entrada',
         10.00,
-        '/lib/images/cardapio/ft_bruschetta.jpg'));
+        'lib/images/cardapio/ftbruschetta.jpeg'));
 
 // Pratos Principais
     srv.adicionarCardapio(Cardapio(
         '011',
         'Esfiha',
-        'Esfiha recheada com carne temperada, assada na perfeição',
+        'Esfiha recheada com carne temperada, assada na perfeição.',
         'Prato Principal',
         15.00,
-        '/lib/images/cardapio/ft_esfiha.jpg'));
+        'lib/images/cardapio/ftesfiha.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '012',
         'Hambúrguer Artesanal',
-        'Suculento hambúrguer de carne com queijo, bacon e molhos especiais',
+        'Suculento hambúrguer de carne com queijo, bacon e molhos especiais.',
         'Prato Principal',
         22.00,
-        '/lib/images/cardapio/ft_hamburguer_artesanal.jpg'));
+        'lib/images/cardapio/fthamburguerartesanal.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '013',
         'Pizza de Calabresa',
-        'Pizza crocante coberta com calabresa fatiada e cebola',
+        'Pizza crocante coberta com calabresa fatiada e cebola.',
         'Prato Principal',
         36.00,
-        '/lib/images/cardapio/ft_pizza_calabresa.jpg'));
+        'lib/images/cardapio/ftpizzacalabresa.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '015',
         'Frango Grelhado',
-        'Peito de frango grelhado servido com legumes sazonais',
+        'Peito de frango grelhado servido com legumes sazonais.',
         'Prato Principal',
         25.00,
-        '/lib/images/cardapio/ft_frango_grelhado.jpg'));
+        'lib/images/cardapio/ftfrangogrelhado.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '016',
         'Lasanha',
-        'Camadas de massa com carne moída e queijo gratinado',
+        'Camadas de massa com carne moída e queijo gratinado.',
         'Prato Principal',
         32.00,
-        '/lib/images/cardapio/ft_lasanha.jpg'));
+        'lib/images/cardapio/ftlasanha.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '017',
         'Bife Acebolado',
-        'Bife macio acebolado, acompanhado de arroz e batata-frita',
+        'Bife macio acebolado, acompanhado de arroz e batata-frita.',
         'Prato Principal',
         35.00,
-        '/lib/images/cardapio/ft_bife_acebolado.jpg'));
+        'lib/images/cardapio/ftbifeacebolado.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '018',
         'Pizza Margherita',
-        'Pizza clássica com molho de tomate, mozzarella e manjericão',
+        'Pizza clássica com molho de tomate, mozzarella e manjericão.',
         'Prato Principal',
         34.90,
-        '/lib/images/cardapio/ft_pizza_margherita.jpg'));
+        'lib/images/cardapio/ftpizzamargherita.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '019',
         'Burguer Vegano',
-        'Hambúrguer feito com legumes frescos e grãos',
+        'Hambúrguer feito com legumes frescos e grãos.',
         'Prato Principal',
         20.00,
-        '/lib/images/cardapio/ft_burguer_vegano.jpg'));
+        'lib/images/cardapio/ftburguervegano.jpeg'));
 
 // Doces
     srv.adicionarCardapio(Cardapio(
         '020',
         'Bolo de Chocolate',
-        'Bolo fofo de chocolate coberto com ganache cremoso',
+        'Bolo fofo de chocolate coberto com ganache cremoso.',
         'Doce',
         14.00,
-        '/lib/images/cardapio/ft_bolo_de_chocolate.jpg'));
+        'lib/images/cardapio/ftbolodechocolate.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '021',
         'Bolo de Cenoura',
-        'Bolo de cenoura fofinho com cobertura de chocolate',
+        'Bolo de cenoura fofinho com cobertura de chocolate.',
         'Doce',
         14.00,
-        '/lib/images/cardapio/ft_bolo_de_cenoura.jpg'));
+        'lib/images/cardapio/ftbolodecenoura.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '022',
         'Bolo de Coco',
-        'Bolo de coco molhadinho com cobertura de coco ralado',
+        'Bolo de coco molhadinho com cobertura de coco ralado.',
         'Doce',
         13.00,
-        '/lib/images/cardapio/ft_bolo_de_coco.jpg'));
+        'lib/images/cardapio/ftbolodecoco.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '023',
         'Bolo de Limão',
-        'Bolo leve de limão com calda cítrica',
+        'Bolo leve de limão com calda cítrica.',
         'Doce',
         12.50,
-        '/lib/images/cardapio/ft_bolo_de_limao.jpg'));
+        'lib/images/cardapio/ftbolodelimao.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '024',
         'Bolo de Fubá',
-        'Tradicional bolo de fubá, macio e saboroso',
+        'Tradicional bolo de fubá, macio e saboroso.',
         'Doce',
         11.00,
-        '/lib/images/cardapio/ft_bolo_de_fuba.jpg'));
+        'lib/images/cardapio/ftbolodefuba.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '025',
         'Bolo de Morango',
-        'Bolo de morango com recheio cremoso de chantilly',
+        'Bolo de morango com recheio cremoso de chantilly.',
         'Doce',
         15.00,
-        '/lib/images/cardapio/ft_bolo_de_morango.jpg'));
+        'lib/images/cardapio/ftbolomorango.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '026',
         'Torta de Limão',
-        'Torta leve de limão com merengue dourado',
+        'Torta leve de limão com merengue dourado.',
         'Doce',
         15.50,
-        '/lib/images/cardapio/ft_torta_de_limao.jpg'));
+        'lib/images/cardapio/fttortadelimao.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '027',
         'Pudim',
-        'Clássico pudim de leite condensado, irresistivelmente cremoso',
+        'Clássico pudim de leite condensado, irresistivelmente cremoso.',
         'Doce',
         9.00,
-        '/lib/images/cardapio/ft_pudim.jpg'));
+        'lib/images/cardapio/ftpudim.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '029',
         'Brigadeiro',
-        'Docinho de leite condensado enrolado e coberto com granulado',
+        'Docinho de leite condensado enrolado e coberto com granulado.',
         'Doce',
         3.50,
-        '/lib/images/cardapio/ft_brigadeiro.jpg'));
+        'lib/images/cardapio/ftbrigadeiro.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '032',
         'Brownie',
-        'Brownie de chocolate com pedaços de nozes, irresistível',
+        'Brownie de chocolate com pedaços de nozes, irresistível.',
         'Doce',
         10.00,
-        '/lib/images/cardapio/ft_brownie.jpg'));
+        'lib/images/cardapio/ftbrownie.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '033',
         'Pudim de Chocolate',
-        'Pudim de chocolate com calda de caramelo',
+        'Pudim de chocolate com calda de caramelo.',
         'Doce',
         11.00,
-        '/lib/images/cardapio/ft_pudim_de_chocolate.jpg'));
+        'lib/images/cardapio/ftpudimdechocolate.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '036',
         'Pão de Mel',
-        'Pão de mel coberto com chocolate e recheado com doce de leite',
+        'Pão de mel coberto com chocolate e recheado com doce de leite.',
         'Doce',
         8.00,
-        '/lib/images/cardapio/ft_pao_de_mel.jpg'));
+        'lib/images/cardapio/ftpãodamel.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '037',
         'Cookies',
-        'Cookies caseiros, crocantes e saborosos',
+        'Cookies caseiros, crocantes e saborosos.',
         'Doce',
         5.00,
-        '/lib/images/cardapio/ft_cookies.jpg'));
+        'lib/images/cardapio/ftcookies.jpeg'));
 
 // Bebidas
     srv.adicionarCardapio(Cardapio(
         '038',
         'Chá Gelado',
-        'Chá gelado refrescante, perfeito para dias quentes',
+        'Chá gelado refrescante, perfeito para dias quentes.',
         'Bebidas',
         5.00,
-        '/lib/images/cardapio/ft_cha_gelado.jpg'));
+        'lib/images/cardapio/ftchagelado.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '039',
         'Suco Natural',
-        'Suco de laranja fresco e natural, sem conservantes',
+        'Suco de laranja fresco e natural, sem conservantes.',
         'Bebidas',
         6.00,
-        '/lib/images/cardapio/ft_suco_natural.jpg'));
+        'lib/images/cardapio/ftsuconatural.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '040',
         'Refrigerante',
-        'Refrigerante em lata, várias opções disponíveis',
+        'Refrigerante em lata, várias opções disponíveis.',
         'Bebidas',
         5.50,
-        '/lib/images/cardapio/ft_refrigerante.jpg'));
+        'lib/images/cardapio/ftrefrigerante.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '041',
         'Água Mineral',
-        'Água mineral sem gás, sempre refrescante',
+        'Água mineral sem gás, sempre refrescante.',
         'Bebidas',
         3.00,
-        '/lib/images/cardapio/ft_agua_mineral.jpg'));
+        'lib/images/cardapio/ftaguamineral.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '045',
         'Café',
-        'Café expresso de alta qualidade, servido puro',
+        'Café expresso de alta qualidade, servido puro.',
         'Bebidas',
         4.00,
-        '/lib/images/cardapio/ft_cafe.jpg'));
+        'lib/images/cardapio/ftcafe.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '046',
         'Capuccino',
-        'Capuccino cremoso, com espuma de leite e chocolate',
+        'Capuccino cremoso, com espuma de leite e chocolate.',
         'Bebidas',
         6.00,
-        '/lib/images/cardapio/ft_capuccino.jpg'));
+        'lib/images/cardapio/ftcapuccino.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '047',
         'Frapê de Café',
-        'Frapê gelado de café, uma explosão de sabor',
+        'Frapê gelado de café, uma explosão de sabor.',
         'Bebidas',
         7.50,
-        '/lib/images/cardapio/ft_frapê_cafe.jpg'));
+        'lib/images/cardapio/ftfrapecafe.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '048',
         'Café com Leite',
-        'Café filtrado com leite cremoso, no ponto certo',
+        'Café filtrado com leite cremoso, no ponto certo.',
         'Bebidas',
         5.00,
-        '/lib/images/cardapio/ft_cafe_com_leite.jpg'));
+        'lib/images/cardapio/ftcafekomleite.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '050',
         'Chá Preto',
-        'Chá preto com um toque de limão, revigorante',
+        'Chá preto com um toque de limão, revigorante.',
         'Bebidas',
         4.50,
-        '/lib/images/cardapio/ft_cha_preto.jpg'));
+        'lib/images/cardapio/ftchapreto.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '051',
         'Chocolate Quente',
-        'Delicioso chocolate quente cremoso, um abraço em forma de bebida',
+        'Delicioso chocolate quente cremoso, um abraço em forma de bebida.',
         'Bebidas',
         8.00,
-        '/lib/images/cardapio/ft_chocolate_quente.jpg'));
+        'lib/images/cardapio/ftchocolatequente.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '052',
         'Cappuccino',
-        'Cappuccino com espuma de leite e toque de canela',
+        'Cappuccino com espuma de leite e toque de canela.',
         'Bebidas',
         6.50,
-        '/lib/images/cardapio/ft_cappuccino.jpg'));
+        'lib/images/cardapio/ftcappuccino.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '053',
         'Latte',
-        'Café latte com leite vaporizado e um leve toque de baunilha',
+        'Café latte com leite vaporizado e um leve toque de baunilha.',
         'Bebidas',
         7.00,
-        '/lib/images/cardapio/ft_latte.jpg'));
+        'lib/images/cardapio/ftlatte.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '058',
         'Chá de Hortelã',
-        'Chá fresco de hortelã, refrescante e digestivo',
+        'Chá fresco de hortelã, refrescante e digestivo.',
         'Bebidas',
         4.00,
-        '/lib/images/cardapio/ft_cha_hortela.jpg'));
+        'lib/images/cardapio/ftchahortela.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '059',
         'Milkshake de Morango',
-        'Milkshake cremoso de morango fresco, com calda de morango',
+        'Milkshake cremoso de morango fresco, com calda de morango.',
         'Bebidas',
         10.50,
-        '/lib/images/cardapio/ft_milkshake_morango.jpg'));
+        'lib/images/cardapio/ftmilkshakemorango.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '060',
         'Milkshake de Baunilha',
-        'Milkshake clássico de baunilha, suave e delicioso',
+        'Milkshake clássico de baunilha, suave e delicioso.',
         'Bebidas',
         9.50,
-        '/lib/images/cardapio/ft_milkshake_baunilha.jpg'));
+        'lib/images/cardapio/ftmilkshakebaunilha.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '061',
         'Milkshake de Ovomaltine',
-        'Milkshake de chocolate com pedacinhos de Ovomaltine',
+        'Milkshake de chocolate com pedacinhos de Ovomaltine.',
         'Bebidas',
         11.00,
-        '/lib/images/cardapio/ft_milkshake_ovomaltine.jpg'));
+        'lib/images/cardapio/ftmilkshakeovomaltine.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '062',
         'Milkshake de Nutella',
-        'Milkshake de Nutella, irresistivelmente cremoso',
+        'Milkshake de Nutella, irresistivelmente cremoso.',
         'Bebidas',
         12.00,
-        '/lib/images/cardapio/ft_milkshake_nutella.jpg'));
+        'lib/images/cardapio/ftmilkshakenutella.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '063',
         'Milkshake de Cookies',
-        'Milkshake com pedaços de biscoito, uma explosão de sabor',
+        'Milkshake com pedaços de biscoito, uma explosão de sabor.',
         'Bebidas',
         11.50,
-        '/lib/images/cardapio/ft_milkshake_cookies.jpg'));
+        'lib/images/cardapio/ftmilkshakecookies.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '064',
         'Caipirinha',
-        'Clássica caipirinha feita com limão, açúcar e cachaça',
+        'Clássica caipirinha feita com limão, açúcar e cachaça.',
         'Bebidas',
         12.00,
-        '/lib/images/cardapio/ft_caipirinha.jpg'));
+        'lib/images/cardapio/ftcaipirinha.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '065',
         'Mojito',
-        'Refrescante mojito com rum, hortelã e limão',
+        'Refrescante mojito com rum, hortelã e limão.',
         'Bebidas',
         14.00,
-        '/lib/images/cardapio/ft_mojito.jpg'));
+        'lib/images/cardapio/ftmojito.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '066',
         'Piña Colada',
-        'Deliciosa piña colada com rum, abacaxi e creme de coco',
+        'Deliciosa piña colada com rum, abacaxi e creme de coco.',
         'Bebidas',
         15.00,
-        '/lib/images/cardapio/ft_pina_colada.jpg'));
+        'lib/images/cardapio/ftpinaColada.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '067',
         'Gin Tônica',
-        'Refrescante gin tônica com limão e ervas',
+        'Refrescante gin tônica com limão e ervas.',
         'Bebidas',
         13.00,
-        '/lib/images/cardapio/ft_gin_tonica.jpg'));
+        'lib/images/cardapio/ftgintonica.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '068',
         'Margarita',
-        'Margarita clássica com tequila, limão e sal na borda',
+        'Margarita clássica com tequila, limão e sal na borda.',
         'Bebidas',
         14.50,
-        '/lib/images/cardapio/ft_margarita.jpg'));
+        'lib/images/cardapio/ftmargarita.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '069',
         'Cerveja Artesanal',
-        'Cerveja artesanal de diversos estilos, sabor marcante',
+        'Cerveja artesanal de diversos estilos, sabor marcante.',
         'Bebidas',
         12.00,
-        '/lib/images/cardapio/ft_cerveja_artesanal.jpg'));
+        'lib/images/cardapio/ftcervejaartesanal.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '070',
         'Vinho Tinto',
-        'Vinho tinto encorpado, ideal para acompanhar pratos',
+        'Vinho tinto encorpado, ideal para acompanhar pratos.',
         'Bebidas',
         20.00,
-        '/lib/images/cardapio/ft_vinho_tinto.jpg'));
+        'lib/images/cardapio/ftvinhotinto.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '071',
         'Vinho Branco',
-        'Vinho branco refrescante, perfeito para climas quentes',
+        'Vinho branco refrescante, perfeito para climas quentes.',
         'Bebidas',
         20.00,
-        '/lib/images/cardapio/ft_vinho_branco.jpg'));
+        'lib/images/cardapio/ftvinhobranco.jpeg'));
     srv.adicionarCardapio(Cardapio(
         '072',
         'Espumante',
-        'Espumante leve e borbulhante, ideal para celebrações',
+        'Espumante leve e borbulhante, ideal para celebrações.',
         'Bebidas',
         25.00,
-        '/lib/images/cardapio/ft_espumante.jpg'));
+        'lib/images/cardapio/ftespumante.jpeg'));
   }
 }
