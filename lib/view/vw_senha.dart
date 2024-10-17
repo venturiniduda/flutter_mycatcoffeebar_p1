@@ -50,30 +50,44 @@ class _SenhaViewState extends State<SenhaView> {
                     height: 10,
                   ),
                   TextFormField(
-                    controller: txtSenhaNew,
-                    decoration: InputDecoration(
-                      labelText: 'Digite sua nova senha',
-                      labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Insira sua nova senha:',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                      controller: txtSenhaNew,
+                      decoration: InputDecoration(
+                        labelText: 'Digite sua nova senha',
+                        labelStyle: TextStyle(color: Colors.black),
+                        hintText: 'Insira sua nova senha:',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                       ),
-                    ),
-                  ),
+                      validator: (txtSenhaNew) {
+                        if (txtSenhaNew == null) {
+                          return 'Informe a Senha';
+                        } else if (txtSenhaNew.isEmpty) {
+                          return 'Informe a Senha';
+                        }
+                        return null;
+                      }),
                   SizedBox(
                     height: 15,
                   ),
                   TextFormField(
-                    controller: txtSenhaRpt,
-                    decoration: InputDecoration(
-                      labelText: 'Repita sua nova senha',
-                      labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Repita sua nova senha',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                      controller: txtSenhaRpt,
+                      decoration: InputDecoration(
+                        labelText: 'Repita sua nova senha',
+                        labelStyle: TextStyle(color: Colors.black),
+                        hintText: 'Repita sua nova senha',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                       ),
-                    ),
-                  ),
+                      validator: (txtSenhaRpt) {
+                        if (txtSenhaRpt == null) {
+                          return 'Informe a Senha';
+                        } else if (txtSenhaRpt.isEmpty) {
+                          return 'Informe a Senha';
+                        }
+                        return null;
+                      }),
                   SizedBox(
                     height: 10,
                   ),
@@ -90,43 +104,47 @@ class _SenhaViewState extends State<SenhaView> {
                         },
                         icon: const Icon(Icons.cancel, size: 50.0),
                         color: Colors.red,
+                        tooltip: 'Cancelar',
                       ),
                       SizedBox(
                         height: 15,
                       ),
                       IconButton(
                         onPressed: () {
-                          if (txtSenhaNew.text != txtSenhaRpt.text) {
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                content: Text('As senhas não coincidem!'),
-                                duration: Duration(seconds: 5),
-                              ),
-                            );
-                          } else {
-                            // alterando a senha na estrutura global
-                            var index = srv.obterIndexPorEmail(email);
-                            if (index != null) {
-                              srv.users[index].senha = txtSenhaNew.text;
+                          if (passwordKey.currentState!.validate()) {
+                            if (txtSenhaNew.text != txtSenhaRpt.text) {
                               widget.msgKey.currentState!.showSnackBar(
                                 SnackBar(
-                                  content: Text(
-                                      'A senha foi alterada com sucesso! Retornando para o Login...'),
-                                  duration: Duration(seconds: 10),
-                                ),
+                                    content: Text('As senhas não coincidem!'),
+                                    duration: Duration(seconds: 2),
+                                    backgroundColor: Colors.black54),
                               );
-                              Timer(Duration(seconds: 2), () {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'login',
-                                  (Route<dynamic> route) => false,
+                            } else {
+                              // alterando a senha na estrutura global
+                              var index = srv.obterIndexPorEmail(email);
+                              if (index != null) {
+                                srv.users[index].senha = txtSenhaNew.text;
+                                widget.msgKey.currentState!.showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'A senha foi alterada com sucesso! Retornando para o Login...'),
+                                      duration: Duration(seconds: 10),
+                                      backgroundColor: Colors.black54),
                                 );
-                              });
+                                Timer(Duration(seconds: 2), () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    'login',
+                                    (Route<dynamic> route) => false,
+                                  );
+                                });
+                              }
                             }
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),
                         color: Colors.green,
+                        tooltip: 'Modificar Senha',
                       ),
                     ],
                   ),

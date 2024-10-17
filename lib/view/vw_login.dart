@@ -108,16 +108,16 @@ class _LoginViewState extends State<LoginView> {
                           if (txtConta.text.isEmpty) {
                             widget.msgKey.currentState!.showSnackBar(
                               SnackBar(
-                                content: Text('Informe o email.'),
-                                duration: Duration(seconds: 2),
-                              ),
+                                  content: Text('Informe o email.'),
+                                  duration: Duration(seconds: 1),
+                                  backgroundColor: Colors.black54),
                             );
                           } else if (!srv.existeUser(txtConta.text)) {
                             widget.msgKey.currentState!.showSnackBar(
                               SnackBar(
-                                content: Text('Insira um email cadastrado.'),
-                                duration: Duration(seconds: 2),
-                              ),
+                                  content: Text('Insira um email cadastrado.'),
+                                  duration: Duration(seconds: 1),
+                                  backgroundColor: Colors.black54),
                             );
                           } else {
                             Navigator.pushNamed(context, 'senha',
@@ -179,9 +179,9 @@ class _LoginViewState extends State<LoginView> {
                               //sem usuários cadastrados
                               widget.msgKey.currentState!.showSnackBar(
                                 SnackBar(
-                                  content: Text('Usuário não cadastrado.'),
-                                  duration: Duration(seconds: 3),
-                                ),
+                                    content: Text('Usuário não cadastrado.'),
+                                    duration: Duration(seconds: 1),
+                                    backgroundColor: Colors.black54),
                               );
                             } else {
                               if ((usuario.email != txtConta.text) ||
@@ -189,10 +189,10 @@ class _LoginViewState extends State<LoginView> {
                                 //senha incorreta
                                 widget.msgKey.currentState!.showSnackBar(
                                   SnackBar(
-                                    content: Text(
-                                        'Login ou senha incorretos. Tente novamente!'),
-                                    duration: Duration(seconds: 3),
-                                  ),
+                                      content: Text(
+                                          'Login ou senha incorretos. Tente novamente!'),
+                                      duration: Duration(seconds: 1),
+                                      backgroundColor: Colors.black54),
                                 );
                               } else {
                                 Navigator.pushNamedAndRemoveUntil(
