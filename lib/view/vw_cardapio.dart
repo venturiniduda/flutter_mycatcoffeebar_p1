@@ -58,6 +58,8 @@ class _CardapioViewState extends State<CardapioView> {
           ),
           IconButton(
             onPressed: () {
+              srv.carrinho.clear();
+              srv.valorTotal = 0;
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 'login',
