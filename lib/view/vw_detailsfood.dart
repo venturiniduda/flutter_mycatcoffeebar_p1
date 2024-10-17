@@ -94,7 +94,7 @@ class _DetalhesViewState extends State<DetalhesView> {
           style: GoogleFonts.reenieBeanie(
               fontSize: 25, color: Colors.brown.shade700)),
       subtitle:
-          Text(texto, style: TextStyle(fontSize: 25, color: Colors.black)),
+          Text(texto, style: TextStyle(fontSize: 20, color: Colors.black)),
     );
   }
 }
