@@ -5,10 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../service/srv_dados.dart';
 
-// to do:
-// - adicionar imagem nos itens
-// - adicionar categoria em cima do nome do item em fonte reduzida
-
 final DadosService srv = GetIt.instance<DadosService>();
 
 class CardapioView extends StatefulWidget {
@@ -22,10 +18,9 @@ class _CardapioViewState extends State<CardapioView> {
   final ScrollController _scrollController = ScrollController();
 
   double itemHeight = 105.0;
-  String legenda = ' ';
 
   void _scrollToNextCat(int jump) {
-    final newPosition;
+    var newPosition;
     if (_scrollController.hasClients) {
       if (jump == 0) {
         newPosition = 0;
@@ -49,10 +44,7 @@ class _CardapioViewState extends State<CardapioView> {
       appBar: AppBar(
         title: Text(
           'MENU',
-          style: GoogleFonts.holtwoodOneSc(
-            fontSize: 20,
-            color: Colors.black
-          ),
+          style: GoogleFonts.holtwoodOneSc(fontSize: 20, color: Colors.black),
         ),
         backgroundColor: Colors.brown.shade300,
         automaticallyImplyLeading: false,
@@ -79,7 +71,7 @@ class _CardapioViewState extends State<CardapioView> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             Wrap(
@@ -90,7 +82,6 @@ class _CardapioViewState extends State<CardapioView> {
                   onPressed: () {
                     setState(() {
                       _scrollToNextCat(0);
-                      legenda = 'Entradas';
                     });
                   },
                   style: TextButton.styleFrom(
@@ -99,7 +90,7 @@ class _CardapioViewState extends State<CardapioView> {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                   ),
                   icon: const Icon(
-                    Icons.coffee,
+                    Icons.bakery_dining,
                     size: 20.0,
                     color: Colors.black,
                   ),
@@ -112,7 +103,6 @@ class _CardapioViewState extends State<CardapioView> {
                   onPressed: () {
                     setState(() {
                       _scrollToNextCat(10);
-                      legenda = 'Pratos Principais';
                     });
                   },
                   style: TextButton.styleFrom(
@@ -121,7 +111,7 @@ class _CardapioViewState extends State<CardapioView> {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                   ),
                   icon: const Icon(
-                    Icons.coffee,
+                    Icons.dinner_dining,
                     size: 20.0,
                     color: Colors.black,
                   ),
@@ -134,7 +124,6 @@ class _CardapioViewState extends State<CardapioView> {
                   onPressed: () {
                     setState(() {
                       _scrollToNextCat(18);
-                      legenda = 'Sobremesas';
                     });
                   },
                   style: TextButton.styleFrom(
@@ -143,12 +132,12 @@ class _CardapioViewState extends State<CardapioView> {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                   ),
                   icon: const Icon(
-                    Icons.coffee,
+                    Icons.cake_outlined,
                     size: 20.0,
                     color: Colors.black,
                   ),
                   label: Text(
-                    'Sobremesas',
+                    'Doces',
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                 ),
@@ -156,7 +145,6 @@ class _CardapioViewState extends State<CardapioView> {
                   onPressed: () {
                     setState(() {
                       _scrollToNextCat(31);
-                      legenda = 'Bebidas';
                     });
                   },
                   style: TextButton.styleFrom(
@@ -165,7 +153,7 @@ class _CardapioViewState extends State<CardapioView> {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                   ),
                   icon: const Icon(
-                    Icons.coffee,
+                    Icons.coffee_outlined,
                     size: 20.0,
                     color: Colors.black,
                   ),
@@ -187,13 +175,22 @@ class _CardapioViewState extends State<CardapioView> {
                     width: 250,
                     height: itemHeight,
                     child: Card(
+                      elevation: 3,
                       child: ListTile(
                         title: Text(srv.cardapio[index].nome,
-                            style: TextStyle(fontSize: 22)),
-                        subtitle: Text(
-                          NumberFormat('#,##0.00')
-                              .format(srv.cardapio[index].valor),
-                          style: TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 20)),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              srv.cardapio[index].categoria,
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            Text(
+                              'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[index].valor)}',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,

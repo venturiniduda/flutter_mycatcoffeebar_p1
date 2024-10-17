@@ -10,9 +10,6 @@ import 'package:flutter_mycatcoffeebar_p1/view/vw_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_senha.dart';
 import 'package:get_it/get_it.dart';
 
-// to do geral:
-// se tiver tempo, adicionar verificação se email ja foi cadastrado
-
 // Criando a estrutura global
 final getIt = GetIt.instance;
 
