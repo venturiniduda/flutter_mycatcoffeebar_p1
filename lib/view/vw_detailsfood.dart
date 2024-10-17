@@ -3,13 +3,7 @@ import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import '../model/md_carrinho.dart';
-
-// to do:
-// - adicionar imagem (deve ser no topo da tela)
-// - descrição do item que inclua informações sobre ingredientes,
-// preparo, características especiais e quaisquer outras informações relevantes.
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -32,30 +26,30 @@ class _DetalhesViewState extends State<DetalhesView> {
         padding: EdgeInsets.all(20),
         child: ListView(
           children: [
-            ClipOval(
-              child: Center(
-                child: Image.asset(
-                  srv.cardapio[idCardapio].imagem,
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
-                ),
+            Container(
+              height: 300,
+              width: 150,
+              clipBehavior: Clip.hardEdge,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50.0)),
+              child: Image.asset(
+                srv.cardapio[idCardapio].imagem,
+                fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 10),
+            SizedBox(height: 10),
             Text(
               srv.cardapio[idCardapio].nome,
               style: GoogleFonts.reenieBeanie(fontSize: 45, letterSpacing: 0.5),
               textAlign: TextAlign.center,
             ),
-            SizedBox(width: 8),
             exibirCampoTexto(
                 'Mais detalhes', srv.cardapio[idCardapio].descricao),
             exibirCampoTexto(
                 'Valor',
                 NumberFormat('#,##0.00')
                     .format(srv.cardapio[idCardapio].valor.toDouble())),
-            SizedBox(height: 30),
+            SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -81,7 +75,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                         content: Text(
                             'Produto adicionado com sucesso ao pedido!',
                             style: TextStyle(fontSize: 15)),
-                        duration: Duration(seconds: 2),
+                        duration: Duration(seconds: 1),
                         backgroundColor: Colors.black54));
                   },
                   icon: const Icon(Icons.add_circle, size: 45.0),
