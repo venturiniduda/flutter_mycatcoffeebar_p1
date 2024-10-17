@@ -95,8 +95,7 @@ class _CadastroViewState extends State<CadastroView> {
                     decoration: InputDecoration(
                       labelText: 'Celular',
                       labelStyle: TextStyle(color: Colors.black),
-                      hintText:
-                          'Digite seu número de celular (Ex: 16991234567)',
+                      hintText: 'Digite o número de celular (Ex: 16991234567)',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50.0),
                       ),
@@ -134,6 +133,8 @@ class _CadastroViewState extends State<CadastroView> {
                       } else {
                         if (!EmailValidator.validate(txtConta)) {
                           return 'Digite um Email válido!';
+                        } else if (srv.existeUser(txtConta) == true) {
+                          return 'Esse email já foi cadastrado!';
                         }
                       }
                       return null;

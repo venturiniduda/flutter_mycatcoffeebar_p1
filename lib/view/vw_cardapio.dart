@@ -178,7 +178,7 @@ class _CardapioViewState extends State<CardapioView> {
                       elevation: 3,
                       child: ListTile(
                         title: Text(srv.cardapio[index].nome,
-                            style: TextStyle(fontSize: 20)),
+                            style: TextStyle(fontSize: 15)),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
