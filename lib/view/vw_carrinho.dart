@@ -56,17 +56,19 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                         title: Text(srv.carrinho[index].nome,
                             style: TextStyle(fontSize: 22)),
                         subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                                 'Quantidade: ${NumberFormat('#0').format(srv.carrinho[index].quantidade)}',
                                 style: TextStyle(fontSize: 14),
                                 textAlign: TextAlign.left),
                             Text(
-                                'Valor unitário: ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorunit)}',
+                                'Valor unitário: R\$ ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorunit)}',
                                 style: TextStyle(fontSize: 14),
                                 textAlign: TextAlign.left),
                             Text(
-                                'Total: ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorTotalItm)}',
+                                'Total: R\$ ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorTotalItm)}',
                                 style: TextStyle(fontSize: 14),
                                 textAlign: TextAlign.left),
                           ],

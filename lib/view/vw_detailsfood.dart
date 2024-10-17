@@ -45,10 +45,8 @@ class _DetalhesViewState extends State<DetalhesView> {
             ),
             exibirCampoTexto(
                 'Mais detalhes', srv.cardapio[idCardapio].descricao),
-            exibirCampoTexto(
-                'Valor',
-                NumberFormat('#,##0.00')
-                    .format(srv.cardapio[idCardapio].valor.toDouble())),
+            exibirCampoTexto('Valor',
+                'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[idCardapio].valor.toDouble())}'),
             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
