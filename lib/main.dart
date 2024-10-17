@@ -15,7 +15,6 @@ final getIt = GetIt.instance;
 
 void main() {
   getIt.registerSingleton<DadosService>(DadosService());
-  // getIt.registerLazySingleton<DadosService>(() => DadosService());
 
   runApp(
     DevicePreview(
