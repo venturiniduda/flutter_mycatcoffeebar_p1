@@ -23,20 +23,39 @@ class _HomeViewState extends State<HomeView> {
               Text(
                 'My Cat',
                 style: GoogleFonts.holtwoodOneSc(
-                  fontSize: 50,
-                ),
+                    fontSize: 50, color: Colors.brown.shade900),
               ),
               Text(
                 'Coffee Bar',
                 style: GoogleFonts.reenieBeanie(
-                  fontSize: 30,
-                ),
+                    fontSize: 30, color: Colors.brown.shade900),
               ),
-              IconButton(
+              SizedBox(height: 15),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, 'login');
                 },
-                icon: const Icon(Icons.arrow_forward, size: 30.0),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(16.0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.pets,
+                      size: 30.0,
+                      color: Colors.brown.shade900,
+                    ),
+                    SizedBox(height: 5.0),
+                    Text(
+                      'Iniciar',
+                      style: GoogleFonts.holtwoodOneSc(
+                          fontSize: 15, color: Colors.brown.shade900),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
