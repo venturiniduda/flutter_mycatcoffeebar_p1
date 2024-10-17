@@ -9,19 +9,11 @@ class CadastroUser {
   String email;
   String celular;
   String senha;
-  String cep;
 
-  CadastroUser(
-    this.nome,
-    this.sobrenome,
-    this.email,
-    this.celular,
-    this.senha,
-    this.cep,
-  );
+  CadastroUser(this.nome, this.sobrenome, this.email, this.celular, this.senha);
 
   static preencher() {
     srv.adicionarUser(
-        CadastroUser('Admin', '', 'admin@gmail.com', '0', 'admin', '0'));
+        CadastroUser('Admin', '', 'admin@gmail.com', '0', 'admin'));
   }
 }
