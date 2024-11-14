@@ -1,5 +1,8 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/firebase_options.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/vw_cardapio.dart';
@@ -13,12 +16,16 @@ import 'package:get_it/get_it.dart';
 // Criando a estrutura global
 final getIt = GetIt.instance;
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   getIt.registerSingleton<DadosService>(DadosService());
 
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => MainApp(),
     ),
   );
