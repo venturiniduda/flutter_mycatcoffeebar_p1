@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1043110472304",
+    "project_id": "my-cat-coffee-bar",
+    "storage_bucket": "my-cat-coffee-bar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043110472304:android:73e8565c9662180b4262b5",
+        "android_client_info": {
+          "package_name": "mycatcoffeebar.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTzhmT-m341bIsskXBIqcQKqI4t5QMlJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
