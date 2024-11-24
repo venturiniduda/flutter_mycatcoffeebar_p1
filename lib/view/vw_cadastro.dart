@@ -21,7 +21,7 @@ class _CadastroViewState extends State<CadastroView> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690), // Dimensões base do design
+      designSize: const Size(200, 360), // Dimensões base do design
       minTextAdapt: true,
       builder: (context, child) {
         return Scaffold(
@@ -85,7 +85,8 @@ class _CadastroViewState extends State<CadastroView> {
                       decoration: InputDecoration(
                         labelText: 'Celular',
                         labelStyle: TextStyle(fontSize: 16.sp),
-                        hintText: 'Digite o número de celular (Ex: 16991234567)',
+                        hintText:
+                            'Digite o número de celular (Ex: 16991234567)',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
                         ),

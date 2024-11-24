@@ -28,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690), // Dimensões base do design
+      designSize: const Size(200, 360), // Dimensões base do design
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
