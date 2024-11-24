@@ -1,12 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_mycatcoffeebar_p1/controller/ct_login.dart';
-import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-final DadosService srv = GetIt.instance<DadosService>();
 
 class CadastroView extends StatefulWidget {
   CadastroView({super.key});
@@ -16,7 +10,6 @@ class CadastroView extends StatefulWidget {
 }
 
 class _CadastroViewState extends State<CadastroView> {
-  // Variáveis para Cadastro
   final GlobalKey<FormState> cadastroKey = GlobalKey<FormState>();
   var txtNome = TextEditingController();
   var txtSobrenome = TextEditingController();
@@ -26,16 +19,10 @@ class _CadastroViewState extends State<CadastroView> {
   var txtSenhaconf = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690), // Tamanho base do design
+      designSize: const Size(360, 690), // Dimensões base do design
       minTextAdapt: true,
-      splitScreenMode: true,
       builder: (context, child) {
         return Scaffold(
           body: Center(
@@ -53,16 +40,15 @@ class _CadastroViewState extends State<CadastroView> {
                     ),
                     Text(
                       'Cadastro',
-                      style: GoogleFonts.reenieBeanie(fontSize: 40.sp),
-                      textAlign: TextAlign.end,
+                      style: GoogleFonts.reenieBeanie(fontSize: 70.sp),
+                      textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     TextFormField(
                       controller: txtNome,
                       decoration: InputDecoration(
                         labelText: 'Nome',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
+                        labelStyle: TextStyle(fontSize: 16.sp),
                         hintText: 'Insira seu nome',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
@@ -80,8 +66,7 @@ class _CadastroViewState extends State<CadastroView> {
                       controller: txtSobrenome,
                       decoration: InputDecoration(
                         labelText: 'Sobrenome',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
+                        labelStyle: TextStyle(fontSize: 16.sp),
                         hintText: 'Insira seu sobrenome',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
@@ -99,10 +84,8 @@ class _CadastroViewState extends State<CadastroView> {
                       controller: txtCel,
                       decoration: InputDecoration(
                         labelText: 'Celular',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
-                        hintText:
-                            'Digite o número de celular (Ex: 16991234567)',
+                        labelStyle: TextStyle(fontSize: 16.sp),
+                        hintText: 'Digite o número de celular (Ex: 16991234567)',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
                         ),
@@ -115,8 +98,8 @@ class _CadastroViewState extends State<CadastroView> {
                           if (!regex.hasMatch(txtCel)) {
                             return 'Número de celular inválido';
                           }
-                          return null;
                         }
+                        return null;
                       },
                     ),
                     SizedBox(height: 10.h),
@@ -124,8 +107,7 @@ class _CadastroViewState extends State<CadastroView> {
                       controller: txtConta,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
+                        labelStyle: TextStyle(fontSize: 16.sp),
                         hintText: 'Insira seu email',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
@@ -143,8 +125,7 @@ class _CadastroViewState extends State<CadastroView> {
                       controller: txtSenha,
                       decoration: InputDecoration(
                         labelText: 'Senha',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
+                        labelStyle: TextStyle(fontSize: 16.sp),
                         hintText: 'Insira sua senha',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
@@ -162,8 +143,7 @@ class _CadastroViewState extends State<CadastroView> {
                       controller: txtSenhaconf,
                       decoration: InputDecoration(
                         labelText: 'Confirmação de Senha',
-                        labelStyle:
-                            TextStyle(color: Colors.black, fontSize: 16.sp),
+                        labelStyle: TextStyle(fontSize: 16.sp),
                         hintText: 'Insira sua senha novamente',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.r),
@@ -178,7 +158,7 @@ class _CadastroViewState extends State<CadastroView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -190,28 +170,18 @@ class _CadastroViewState extends State<CadastroView> {
                               (Route<dynamic> route) => false,
                             );
                           },
-                          icon: const Icon(Icons.cancel),
-                          iconSize: 50.sp,
+                          icon: Icon(Icons.cancel, size: 50.sp),
                           color: Colors.red,
                           tooltip: 'Cancelar',
                         ),
-                        SizedBox(width: 15.w),
+                        SizedBox(width: 20.w),
                         IconButton(
                           onPressed: () {
                             if (cadastroKey.currentState!.validate()) {
-                              // Salvando dados do usuário e criando conta
-                              LoginController().criarConta(
-                                context,
-                                txtNome.text,
-                                txtSobrenome.text,
-                                txtCel.text,
-                                txtConta.text,
-                                txtSenha.text,
-                              );
+                              // Lógica para cadastrar o usuário
                             }
                           },
-                          icon: const Icon(Icons.check_circle),
-                          iconSize: 50.sp,
+                          icon: Icon(Icons.check_circle, size: 50.sp),
                           color: Colors.green,
                           tooltip: 'Cadastrar',
                         ),

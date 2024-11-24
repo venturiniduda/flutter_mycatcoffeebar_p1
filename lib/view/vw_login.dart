@@ -26,16 +26,11 @@ class _LoginViewState extends State<LoginView> {
   var txtSenha = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690), // Dimensões base do design
-      minTextAdapt: true, // Ajuste de texto para telas menores
-      splitScreenMode: true, // Suporte a múltiplas janelas (tablet/desktops)
+      minTextAdapt: true,
+      splitScreenMode: true,
       builder: (context, child) {
         return ScaffoldMessenger(
           key: widget.msgKey,
@@ -57,9 +52,9 @@ class _LoginViewState extends State<LoginView> {
                       Text(
                         'Login',
                         style: GoogleFonts.reenieBeanie(fontSize: 30.sp),
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 20.h),
                       TextFormField(
                         controller: txtConta,
                         decoration: InputDecoration(
@@ -115,6 +110,7 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ],
                       ),
+                      SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -148,7 +144,6 @@ class _LoginViewState extends State<LoginView> {
                           SizedBox(width: 15.w),
                           IconButton(
                             onPressed: () {
-                              // VERIFICAÇÃO DADOS LOGIN
                               if (loginKey.currentState!.validate()) {
                                 LoginController().login(
                                   context,
