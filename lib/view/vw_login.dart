@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,157 +27,151 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
-    // CadastroUser.preencher();
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
-    return ScaffoldMessenger(
-      key: widget.msgKey,
-      child: Scaffold(
-        body: Center(
-          child: Form(
-            key: loginKey,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'lib/images/logo.png',
-                    height: 250,
-                    width: 350,
-                  ),
-                  Text(
-                    'Login',
-                    style: GoogleFonts.reenieBeanie(fontSize: 150),
-                    textAlign: TextAlign.end,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      controller: txtConta,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Insira seu email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690), // Dimensões base do design
+      minTextAdapt: true, // Ajuste de texto para telas menores
+      splitScreenMode: true, // Suporte a múltiplas janelas (tablet/desktops)
+      builder: (context, child) {
+        return ScaffoldMessenger(
+          key: widget.msgKey,
+          child: Scaffold(
+            body: Center(
+              child: Form(
+                key: loginKey,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 50.h),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'lib/images/logo.png',
+                        height: 250.h,
+                        width: 350.w,
                       ),
-                      validator: (txtConta) {
-                        if (txtConta == null) {
-                          return 'Informe o Email';
-                        } else if (txtConta.isEmpty) {
-                          return 'Informe o Email';
-                        } else {
-                          if (!EmailValidator.validate(txtConta)) {
+                      Text(
+                        'Login',
+                        style: GoogleFonts.reenieBeanie(fontSize: 30.sp),
+                        textAlign: TextAlign.end,
+                      ),
+                      SizedBox(height: 10.h),
+                      TextFormField(
+                        controller: txtConta,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle:
+                              TextStyle(color: Colors.black, fontSize: 16.sp),
+                          hintText: 'Insira seu email',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50.r),
+                          ),
+                        ),
+                        validator: (txtConta) {
+                          if (txtConta == null || txtConta.isEmpty) {
+                            return 'Informe o Email';
+                          } else if (!EmailValidator.validate(txtConta)) {
                             return 'Digite um Email válido!';
                           }
                           return null;
-                        }
-                      }),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                      controller: txtSenha,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Insira sua senha',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                      ),
-                      validator: (txtSenha) {
-                        if (txtSenha == null) {
-                          return 'Informe a Senha';
-                        } else if (txtSenha.isEmpty) {
-                          return 'Informe a Senha';
-                        }
-                        return null;
-                      }),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'senha');
                         },
-                        style: ButtonStyle(
-                          iconSize: WidgetStateProperty.all(15),
-                        ),
-                        icon: Icon(Icons.key_off),
-                        label: Text(
-                          'Esqueci a senha',
-                          style: TextStyle(
-                            fontSize: 15,
+                      ),
+                      SizedBox(height: 15.h),
+                      TextFormField(
+                        controller: txtSenha,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle:
+                              TextStyle(color: Colors.black, fontSize: 16.sp),
+                          hintText: 'Insira sua senha',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50.r),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'home',
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        icon: const Icon(Icons.cancel, size: 50.0),
-                        color: Colors.red,
-                        tooltip: 'Cancelar',
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'cadastro',
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        icon: const Icon(Icons.add_circle, size: 50.0),
-                        color: Colors.blue,
-                        tooltip: 'Cadastrar Usuário',
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // VERIFICAÇÃO DADOS LOGIN
-                          if (loginKey.currentState!.validate()) {
-                            LoginController().login(
-                              context,
-                              txtConta.text,
-                              txtSenha.text,
-                            );
+                        validator: (txtSenha) {
+                          if (txtSenha == null || txtSenha.isEmpty) {
+                            return 'Informe a Senha';
                           }
+                          return null;
                         },
-                        icon: const Icon(Icons.check_circle, size: 50.0),
-                        color: Colors.green,
-                        tooltip: 'Realizar o Login',
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'senha');
+                            },
+                            icon: Icon(Icons.key_off, size: 15.sp),
+                            label: Text(
+                              'Esqueci a senha',
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                'home',
+                                (Route<dynamic> route) => false,
+                              );
+                            },
+                            icon: const Icon(Icons.cancel),
+                            iconSize: 50.sp,
+                            color: Colors.red,
+                            tooltip: 'Cancelar',
+                          ),
+                          SizedBox(width: 15.w),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                'cadastro',
+                                (Route<dynamic> route) => false,
+                              );
+                            },
+                            icon: const Icon(Icons.add_circle),
+                            iconSize: 50.sp,
+                            color: Colors.blue,
+                            tooltip: 'Cadastrar Usuário',
+                          ),
+                          SizedBox(width: 15.w),
+                          IconButton(
+                            onPressed: () {
+                              // VERIFICAÇÃO DADOS LOGIN
+                              if (loginKey.currentState!.validate()) {
+                                LoginController().login(
+                                  context,
+                                  txtConta.text,
+                                  txtSenha.text,
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.check_circle),
+                            iconSize: 50.sp,
+                            color: Colors.green,
+                            tooltip: 'Realizar o Login',
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
