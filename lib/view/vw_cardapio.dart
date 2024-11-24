@@ -3,6 +3,7 @@ import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../controller/ct_login.dart';
 import '../service/srv_dados.dart';
 
 final DadosService srv = GetIt.instance<DadosService>();
@@ -60,6 +61,7 @@ class _CardapioViewState extends State<CardapioView> {
             onPressed: () {
               srv.carrinho.clear();
               srv.valorTotal = 0;
+              LoginController().logout();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 'login',

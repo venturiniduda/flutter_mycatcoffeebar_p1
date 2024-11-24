@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_cadastro.dart';
+import 'package:flutter_mycatcoffeebar_p1/controller/ct_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,11 +21,15 @@ class _CadastroViewState extends State<CadastroView> {
   final GlobalKey<FormState> cadastroKey = GlobalKey<FormState>();
   var txtNome = TextEditingController();
   var txtSobrenome = TextEditingController();
-  var txtCep = TextEditingController();
   var txtCel = TextEditingController();
   var txtConta = TextEditingController();
   var txtSenha = TextEditingController();
   var txtSenhaconf = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class _CadastroViewState extends State<CadastroView> {
         child: Form(
           key: cadastroKey,
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -130,12 +134,6 @@ class _CadastroViewState extends State<CadastroView> {
                         return 'Informe um Email';
                       } else if (txtConta.isEmpty) {
                         return 'Informe um Email';
-                      } else {
-                        if (!EmailValidator.validate(txtConta)) {
-                          return 'Digite um Email válido!';
-                        } else if (srv.existeUser(txtConta) == true) {
-                          return 'Esse email já foi cadastrado!';
-                        }
                       }
                       return null;
                     }),
@@ -206,26 +204,13 @@ class _CadastroViewState extends State<CadastroView> {
                       onPressed: () {
                         if (cadastroKey.currentState!.validate()) {
                           // salvando dados do usuário
-                          srv.adicionarUser(CadastroUser(
+                          LoginController().criarConta(
+                              context,
                               txtNome.text,
                               txtSobrenome.text,
-                              txtConta.text,
                               txtCel.text,
-                              txtSenha.text));
-
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Cadastro efetuado!',
-                                  style: TextStyle(fontSize: 15)),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.black54));
-
-                          Timer(Duration(seconds: 2), () {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              'login',
-                              (Route<dynamic> route) => false,
-                            );
-                          });
+                              txtConta.text,
+                              txtSenha.text);
                         }
                       },
                       icon: const Icon(Icons.check_circle, size: 50.0),
