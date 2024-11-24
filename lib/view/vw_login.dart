@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
           child: Form(
             key: loginKey,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -158,34 +158,6 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           // VERIFICAÇÃO DADOS LOGIN
                           if (loginKey.currentState!.validate()) {
-                            // final usuario = srv.retornarUser(txtConta.text);
-                            // if (usuario == null) {
-                            //   //sem usuários cadastrados
-                            //   widget.msgKey.currentState!.showSnackBar(
-                            //     SnackBar(
-                            //         content: Text('Usuário não cadastrado.'),
-                            //         duration: Duration(seconds: 1),
-                            //         backgroundColor: Colors.black54),
-                            //   );
-                            // } else {
-                            //   if ((usuario.email != txtConta.text) ||
-                            //       (usuario.senha != txtSenha.text)) {
-                            //     //senha incorreta
-                            //     widget.msgKey.currentState!.showSnackBar(
-                            //       SnackBar(
-                            //           content: Text(
-                            //               'Login ou senha incorretos. Tente novamente!'),
-                            //           duration: Duration(seconds: 1),
-                            //           backgroundColor: Colors.black54),
-                            //     );
-                            //   } else {
-                            //     Navigator.pushNamedAndRemoveUntil(
-                            //       context,
-                            //       'cardapio',
-                            //       (Route<dynamic> route) => false,
-                            //     );
-                            //   }
-                            // }
                             LoginController().login(
                               context,
                               txtConta.text,

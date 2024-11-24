@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/controller/ct_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
@@ -203,7 +202,7 @@ class _CadastroViewState extends State<CadastroView> {
                     IconButton(
                       onPressed: () {
                         if (cadastroKey.currentState!.validate()) {
-                          // salvando dados do usuário
+                          // salvando dados do usuário e criando conta
                           LoginController().criarConta(
                               context,
                               txtNome.text,
