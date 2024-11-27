@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:get_it/get_it.dart';
@@ -36,7 +37,7 @@ class _CardapioViewState extends State<CardapioView> {
 
   @override
   void initState() {
-    srv.preencherCardapio();
+    srv.preencherListaCardapio();
     super.initState();
   }
 
@@ -76,165 +77,199 @@ class _CardapioViewState extends State<CardapioView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Wrap(
-              spacing: 5.0,
-              runSpacing: 5.0,
-              children: <Widget>[
-                TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _scrollToNextCat(0);
-                    });
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.brown.shade200,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                  ),
-                  icon: const Icon(
-                    Icons.bakery_dining,
-                    size: 20.0,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'Entradas',
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _scrollToNextCat(10);
-                    });
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.brown.shade200,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                  ),
-                  icon: const Icon(
-                    Icons.dinner_dining,
-                    size: 20.0,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'Pratos Principais',
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _scrollToNextCat(18);
-                    });
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.brown.shade200,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                  ),
-                  icon: const Icon(
-                    Icons.cake_outlined,
-                    size: 20.0,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'Doces',
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _scrollToNextCat(31);
-                    });
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.brown.shade200,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                  ),
-                  icon: const Icon(
-                    Icons.coffee_outlined,
-                    size: 20.0,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'Bebidas',
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                shrinkWrap: true,
-                itemCount: srv.cardapio.length,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: 250,
-                    height: itemHeight,
-                    child: Card(
-                      elevation: 3,
-                      child: ListTile(
-                        title: Text(srv.cardapio[index].nome,
-                            style: TextStyle(fontSize: 15)),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              srv.cardapio[index].categoria,
-                              style: TextStyle(fontSize: 10),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: MenuController().listar(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Center(
+                  child: Text('Não foi possível conectar.'),
+                );
+              case ConnectionState.waiting:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              default:
+                final dados = snapshot.requireData;
+                if (dados.size > 0) {
+                  return Column(
+                    children: [
+                      Wrap(
+                        spacing: 5.0,
+                        runSpacing: 5.0,
+                        children: <Widget>[
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _scrollToNextCat(0);
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.brown.shade200,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 16.0),
                             ),
-                            Text(
-                              'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[index].valor)}',
-                              style: TextStyle(fontSize: 18),
+                            icon: const Icon(
+                              Icons.bakery_dining,
+                              size: 20.0,
+                              color: Colors.black,
                             ),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                srv.adicionarCarrinho(Carrinho(
-                                    srv.cardapio[index].nome,
-                                    srv.cardapio[index].categoria,
-                                    srv.cardapio[index].valor,
-                                    1,
-                                    0));
+                            label: Text(
+                              'Entradas',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _scrollToNextCat(10);
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.brown.shade200,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 16.0),
+                            ),
+                            icon: const Icon(
+                              Icons.dinner_dining,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            label: Text(
+                              'Pratos Principais',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _scrollToNextCat(18);
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.brown.shade200,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 16.0),
+                            ),
+                            icon: const Icon(
+                              Icons.cake_outlined,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            label: Text(
+                              'Doces',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _scrollToNextCat(31);
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.brown.shade200,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 16.0),
+                            ),
+                            icon: const Icon(
+                              Icons.coffee_outlined,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            label: Text(
+                              'Bebidas',
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Expanded(
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          shrinkWrap: true,
+                          itemCount: srv.cardapio.length,
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              width: 250,
+                              height: itemHeight,
+                              child: Card(
+                                elevation: 3,
+                                child: ListTile(
+                                  title: Text(srv.cardapio[index].nome,
+                                      style: TextStyle(fontSize: 15)),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        srv.cardapio[index].categoria,
+                                        style: TextStyle(fontSize: 10),
+                                      ),
+                                      Text(
+                                        'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[index].valor)}',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          srv.adicionarCarrinho(Carrinho(
+                                              srv.cardapio[index].codigo,
+                                              srv.cardapio[index].nome,
+                                              srv.cardapio[index].categoria,
+                                              srv.cardapio[index].valor,
+                                              1,
+                                              0));
 
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Produto adicionado com sucesso ao pedido!',
-                                        style: TextStyle(fontSize: 15)),
-                                    duration: Duration(seconds: 2),
-                                    backgroundColor: Colors.black54));
-                              },
-                              child: Icon(Icons.add_shopping_cart),
-                            ),
-                            SizedBox(width: 20),
-                            InkWell(
-                              onTap: () {
-                                // abrir detalhes do item
-                                Navigator.pushNamed(context, 'detalhes',
-                                    arguments: index);
-                              },
-                              child: Icon(Icons.arrow_right),
-                            ),
-                          ],
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Produto adicionado com sucesso ao pedido!',
+                                                      style: TextStyle(
+                                                          fontSize: 15)),
+                                                  duration:
+                                                      Duration(seconds: 2),
+                                                  backgroundColor:
+                                                      Colors.black54));
+                                        },
+                                        child: Icon(Icons.add_shopping_cart),
+                                      ),
+                                      SizedBox(width: 20),
+                                      InkWell(
+                                        onTap: () {
+                                          // abrir detalhes do item
+                                          Navigator.pushNamed(
+                                              context, 'detalhes',
+                                              arguments: index);
+                                        },
+                                        child: Icon(Icons.arrow_right),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
+                    ],
                   );
-                },
-              ),
-            ),
-          ],
+                } else {
+                  return Center(
+                    child: Text('Nenhum item do cardápio encontrado.'),
+                  );
+                }
+            }
+          },
         ),
       ),
     );

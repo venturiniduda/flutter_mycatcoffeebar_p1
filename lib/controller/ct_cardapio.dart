@@ -7,7 +7,7 @@ import '../model/md_cardapio.dart';
 class MenuController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  adicionar(context, Cardapio item) {
+  adicionar(Cardapio item) {
     db.collection('itens_cardapio').add(item.toJson());
     // .then((value) => sucesso(context, 'Cardapio inserido com sucesso!'))
     // .catchError(
