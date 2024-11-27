@@ -9,6 +9,10 @@ class CardapioController {
     db.collection('itens_cardapio').add(item.toJson());
   }
 
+  adicionarItemCarrinho(Cardapio item) {
+    db.collection('pedido').add(item.toJson());
+  }
+
   Stream<QuerySnapshot> listar() {
     var resultado = db.collection('itens_cardapio').orderBy('uid');
     return resultado.snapshots();

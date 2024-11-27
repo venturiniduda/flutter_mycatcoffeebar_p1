@@ -41,7 +41,9 @@ class _DetalhesViewState extends State<DetalhesView> {
               default:
                 final dados = snapshot.requireData;
                 if (dados.size > 0) {
-                  final item = snapshot.data!.docs.first.data();
+                  final Map<String, dynamic> item =
+                      snapshot.data!.docs.first.data() as Map<String, dynamic>;
+
                   return ListView(
                     children: [
                       Container(
