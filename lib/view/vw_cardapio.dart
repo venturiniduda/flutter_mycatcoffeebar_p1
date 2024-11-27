@@ -40,12 +40,7 @@ class _CardapioViewState extends State<CardapioView> {
 
   @override
   void initState() {
-    // srv.preencherListaCardapio();
-    cardapio = Cardapio.preencher();
-
-    for (Cardapio item in cardapio) {
-      CardapioController().adicionar(item);
-    };
+    srv.preencherListaCardapio();
     super.initState();
   }
 
