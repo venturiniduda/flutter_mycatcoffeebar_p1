@@ -13,4 +13,9 @@ class CardapioController {
     var resultado = db.collection('itens_cardapio').orderBy('uid');
     return resultado.snapshots();
   }
+
+  Stream<QuerySnapshot> detalhes(id) {
+    var resultado = db.collection('itens_cardapio').where('uid', isEqualTo: id);
+    return resultado.snapshots();
+  }
 }

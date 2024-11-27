@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../controller/ct_cardapio.dart';
 import '../controller/ct_login.dart';
-import '../model/md_cardapio.dart';
 import '../service/srv_dados.dart';
 
 final DadosService srv = GetIt.instance<DadosService>();
@@ -254,7 +253,7 @@ class _CardapioViewState extends State<CardapioView> {
                                           // abrir detalhes do item
                                           Navigator.pushNamed(
                                               context, 'detalhes',
-                                              arguments: index);
+                                              arguments: id);
                                         },
                                         child: Icon(Icons.arrow_right),
                                       ),
