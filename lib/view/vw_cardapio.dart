@@ -20,6 +20,7 @@ class CardapioView extends StatefulWidget {
 class _CardapioViewState extends State<CardapioView> {
   final ScrollController _scrollController = ScrollController();
   double itemHeight = 105.0;
+  String categoria = '';
 
   void _scrollToNextCat(int jump) {
     var newPosition;
@@ -36,10 +37,11 @@ class _CardapioViewState extends State<CardapioView> {
   int index = 0;
 
   @override
-  // void initState() {
-  //   srv.preencherListaCardapio();
-  //   super.initState();
-  // }
+  void initState() {
+    // srv.preencherListaCardapio();
+    srv.preencherCategorias();
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,119 +79,122 @@ class _CardapioViewState extends State<CardapioView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: CardapioController().listar(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Center(
-                  child: Text('Não foi possível conectar.'),
-                );
-              case ConnectionState.waiting:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              default:
-                final dados = snapshot.requireData;
-                if (dados.size > 0) {
-                  return Column(
-                    children: [
-                      Wrap(
-                        spacing: 5.0,
-                        runSpacing: 5.0,
-                        children: <Widget>[
-                          TextButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                _scrollToNextCat(0);
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.brown.shade200,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                            ),
-                            icon: const Icon(
-                              Icons.bakery_dining,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
-                            label: Text(
-                              'Entradas',
-                              style: TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                _scrollToNextCat(10);
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.brown.shade200,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                            ),
-                            icon: const Icon(
-                              Icons.dinner_dining,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
-                            label: Text(
-                              'Pratos Principais',
-                              style: TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                _scrollToNextCat(18);
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.brown.shade200,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                            ),
-                            icon: const Icon(
-                              Icons.cake_outlined,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
-                            label: Text(
-                              'Doces',
-                              style: TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                _scrollToNextCat(31);
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.brown.shade200,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                            ),
-                            icon: const Icon(
-                              Icons.coffee_outlined,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
-                            label: Text(
-                              'Bebidas',
-                              style: TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Expanded(
+        child: Column(
+          children: [
+            // BOTÕES CATEGORIA
+            Wrap(
+              spacing: 5.0,
+              runSpacing: 5.0,
+              children: <Widget>[
+                TextButton.icon(
+                  onPressed: () {
+                    categoria = 'Entradas';
+                    setState(() {
+                      _scrollToNextCat(0);
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.brown.shade200,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  ),
+                  icon: const Icon(
+                    Icons.bakery_dining,
+                    size: 20.0,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Entradas',
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    categoria = 'Pratos Principais';
+                    setState(() {
+                      _scrollToNextCat(10);
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.brown.shade200,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  ),
+                  icon: const Icon(
+                    Icons.dinner_dining,
+                    size: 20.0,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Pratos Principais',
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    categoria = 'Doces';
+                    setState(() {
+                      _scrollToNextCat(18);
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.brown.shade200,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  ),
+                  icon: const Icon(
+                    Icons.cake_outlined,
+                    size: 20.0,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Doces',
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    categoria = 'Bebidas';
+                    setState(() {
+                      _scrollToNextCat(31);
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.brown.shade200,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  ),
+                  icon: const Icon(
+                    Icons.coffee_outlined,
+                    size: 20.0,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Bebidas',
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // BODY
+            StreamBuilder<QuerySnapshot>(
+              stream: CardapioController().listar(categoria),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    return Center(
+                      child: Text('Não foi possível conectar.'),
+                    );
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  default:
+                    final dados = snapshot.requireData;
+                    if (dados.size > 0) {
+                      return Expanded(
                         child: ListView.builder(
                           controller: _scrollController,
                           shrinkWrap: true,
@@ -264,16 +269,16 @@ class _CardapioViewState extends State<CardapioView> {
                             );
                           },
                         ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Center(
-                    child: Text('Nenhum item do cardápio encontrado.'),
-                  );
+                      );
+                    } else {
+                      return Center(
+                        child: Text('Nenhum item do cardápio encontrado.'),
+                      );
+                    }
                 }
-            }
-          },
+              },
+            ),
+          ],
         ),
       ),
     );
