@@ -20,8 +20,6 @@ class CardapioView extends StatefulWidget {
 
 class _CardapioViewState extends State<CardapioView> {
   final ScrollController _scrollController = ScrollController();
-
-  List<Cardapio> cardapio = [];
   double itemHeight = 105.0;
 
   void _scrollToNextCat(int jump) {
@@ -39,10 +37,10 @@ class _CardapioViewState extends State<CardapioView> {
   int index = 0;
 
   @override
-  void initState() {
-    srv.preencherListaCardapio();
-    super.initState();
-  }
+  // void initState() {
+  //   srv.preencherListaCardapio();
+  //   super.initState();
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,26 +194,30 @@ class _CardapioViewState extends State<CardapioView> {
                         child: ListView.builder(
                           controller: _scrollController,
                           shrinkWrap: true,
-                          itemCount: srv.cardapio.length,
+                          itemCount: dados.size,
                           itemBuilder: (context, index) {
+                            String id = dados.docs[index].id;
+                            dynamic item = dados.docs[index].data();
                             return SizedBox(
                               width: 250,
                               height: itemHeight,
                               child: Card(
                                 elevation: 3,
                                 child: ListTile(
-                                  title: Text(srv.cardapio[index].nome,
+                                  title: Text(item['nome'],
                                       style: TextStyle(fontSize: 15)),
                                   subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        srv.cardapio[index].categoria,
+                                        item['categoria'],
                                         style: TextStyle(fontSize: 10),
                                       ),
                                       Text(
-                                        'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[index].valor)}',
+                                        'R\$ ${NumberFormat('#,##0.00').format(
+                                          item['valor'],
+                                        )}',
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -226,10 +228,10 @@ class _CardapioViewState extends State<CardapioView> {
                                       InkWell(
                                         onTap: () {
                                           srv.adicionarCarrinho(Carrinho(
-                                              srv.cardapio[index].codigo,
-                                              srv.cardapio[index].nome,
-                                              srv.cardapio[index].categoria,
-                                              srv.cardapio[index].valor,
+                                              item['uid'],
+                                              item['nome'],
+                                              item['categoria'],
+                                              item['valor'],
                                               1,
                                               0));
 
