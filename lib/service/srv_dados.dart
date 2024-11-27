@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import '../model/md_cardapio.dart';
 import '../model/md_carrinho.dart';
+import '../controller/ct_cardapio.dart';
 
 class DadosService {
   List<Cardapio> cardapio = [];
@@ -7,12 +10,12 @@ class DadosService {
   double valorTotal = 0;
 
   // FUNÇÕES PARA O CARDÁPIO
-  void preencherCardapio() {
-    Cardapio.preencher();
-  }
+  void preencherListaCardapio() {
+    cardapio = Cardapio.preencher();
 
-  void adicionarCardapio(Cardapio item) {
-    cardapio.add(item);
+    for (Cardapio item in cardapio) {
+      MenuController().adicionar(item);
+    };
   }
 
   Cardapio retornarCardapio(id) {

@@ -202,7 +202,6 @@ class _CardapioViewState extends State<CardapioView> {
                             InkWell(
                               onTap: () {
                                 srv.adicionarCarrinho(Carrinho(
-                                    srv.cardapio[index].codigo,
                                     srv.cardapio[index].nome,
                                     srv.cardapio[index].categoria,
                                     srv.cardapio[index].valor,
