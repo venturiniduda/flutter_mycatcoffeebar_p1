@@ -1,0 +1,38 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "my-cat-coffee-bar",
+          "appId": "1:1043110472304:android:73e8565c9662180b4262b5",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "my-cat-coffee-bar",
+          "configurations": {
+            "android": "1:1043110472304:android:73e8565c9662180b4262b5",
+            "ios": "1:1043110472304:ios:40993563512dd1674262b5",
+            "web": "1:1043110472304:web:9391139016f7a50f4262b5",
+            "windows": "1:1043110472304:web:c0667c7185b6dcb04262b5"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

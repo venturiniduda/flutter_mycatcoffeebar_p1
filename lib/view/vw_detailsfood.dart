@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mycatcoffeebar_p1/controller/ct_cardapio.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,65 +26,92 @@ class _DetalhesViewState extends State<DetalhesView> {
       backgroundColor: Colors.brown.shade100,
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: ListView(
-          children: [
-            Container(
-              height: 300,
-              width: 150,
-              clipBehavior: Clip.hardEdge,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50.0)),
-              child: Image.asset(
-                srv.cardapio[idCardapio].imagem,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              srv.cardapio[idCardapio].nome,
-              style: GoogleFonts.reenieBeanie(fontSize: 45, letterSpacing: 0.5),
-              textAlign: TextAlign.center,
-            ),
-            exibirCampoTexto(
-                'Mais detalhes', srv.cardapio[idCardapio].descricao),
-            exibirCampoTexto('Valor',
-                'R\$ ${NumberFormat('#,##0.00').format(srv.cardapio[idCardapio].valor.toDouble())}'),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_circle_left, size: 45.0),
-                  color: Colors.brown.shade500,
-                  tooltip: 'Voltar',
-                ),
-                IconButton(
-                  onPressed: () {
-                    srv.adicionarCarrinho(Carrinho(
-                        srv.cardapio[idCardapio].codigo,
-                        srv.cardapio[idCardapio].nome,
-                        srv.cardapio[idCardapio].categoria,
-                        srv.cardapio[idCardapio].valor,
-                        1,
-                        0));
+        child: StreamBuilder<QuerySnapshot>(
+          stream: CardapioController().detalhes(idCardapio),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Center(
+                  child: Text('Não foi possível conectar.'),
+                );
+              case ConnectionState.waiting:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              default:
+                final dados = snapshot.requireData;
+                if (dados.size > 0) {
+                  final Map<String, dynamic> item =
+                      snapshot.data!.docs.first.data() as Map<String, dynamic>;
 
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            'Produto adicionado com sucesso ao pedido!',
-                            style: TextStyle(fontSize: 15)),
-                        duration: Duration(seconds: 1),
-                        backgroundColor: Colors.black54));
-                  },
-                  icon: const Icon(Icons.add_circle, size: 45.0),
-                  color: Colors.blue.shade500,
-                  tooltip: 'Adicionar ao Pedido',
-                ),
-              ],
-            ),
-          ],
+                  return ListView(
+                    children: [
+                      Container(
+                        height: 300,
+                        width: 150,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0)),
+                        child: Image.asset(
+                          item['imagem'],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        item['nome'],
+                        style: GoogleFonts.reenieBeanie(
+                            fontSize: 45, letterSpacing: 0.5),
+                        textAlign: TextAlign.center,
+                      ),
+                      exibirCampoTexto('Mais detalhes', item['descricao']),
+                      exibirCampoTexto('Valor',
+                          'R\$ ${NumberFormat('#,##0.00').format(item['valor'].toDouble())}'),
+                      SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon:
+                                const Icon(Icons.arrow_circle_left, size: 45.0),
+                            color: Colors.brown.shade500,
+                            tooltip: 'Voltar',
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              srv.adicionarCarrinho(Carrinho(
+                                  item['uid'],
+                                  item['nome'],
+                                  item['categoria'],
+                                  item['valor'],
+                                  1,
+                                  0));
+
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'Produto adicionado com sucesso ao pedido!',
+                                      style: TextStyle(fontSize: 15)),
+                                  duration: Duration(seconds: 1),
+                                  backgroundColor: Colors.black54));
+                            },
+                            icon: const Icon(Icons.add_circle, size: 45.0),
+                            color: Colors.blue.shade500,
+                            tooltip: 'Adicionar ao Pedido',
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                } else {
+                  return Center(
+                    child: Text('Nenhuma tarefa encontrada.'),
+                  );
+                }
+            }
+          },
         ),
       ),
     );

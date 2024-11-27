@@ -4,6 +4,8 @@ import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/ct_login.dart';
+
 final DadosService srv = GetIt.instance<DadosService>();
 
 class SenhaView extends StatefulWidget {
@@ -17,20 +19,17 @@ class SenhaView extends StatefulWidget {
 }
 
 class _SenhaViewState extends State<SenhaView> {
-  final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
-  var txtSenhaNew = TextEditingController();
-  var txtSenhaRpt = TextEditingController();
+  final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
+  var txtEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final String email = ModalRoute.of(context)!.settings.arguments as String;
-
     return ScaffoldMessenger(
       key: widget.msgKey,
       child: Scaffold(
         body: Center(
           child: Form(
-            key: passwordKey,
+            key: emailKey,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -50,41 +49,20 @@ class _SenhaViewState extends State<SenhaView> {
                     height: 10,
                   ),
                   TextFormField(
-                      controller: txtSenhaNew,
+                      controller: txtEmail,
                       decoration: InputDecoration(
-                        labelText: 'Digite sua nova senha',
+                        labelText: 'Digite seu email cadastrado',
                         labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Insira sua nova senha:',
+                        hintText: 'Insira seu email cadastrado:',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                       ),
                       validator: (txtSenhaNew) {
                         if (txtSenhaNew == null) {
-                          return 'Informe a Senha';
+                          return 'Informe o email cadastrado';
                         } else if (txtSenhaNew.isEmpty) {
-                          return 'Informe a Senha';
-                        }
-                        return null;
-                      }),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                      controller: txtSenhaRpt,
-                      decoration: InputDecoration(
-                        labelText: 'Repita sua nova senha',
-                        labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Repita sua nova senha',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                      ),
-                      validator: (txtSenhaRpt) {
-                        if (txtSenhaRpt == null) {
-                          return 'Informe a Senha';
-                        } else if (txtSenhaRpt.isEmpty) {
-                          return 'Informe a Senha';
+                          return 'Informe o email cadastrado';
                         }
                         return null;
                       }),
@@ -111,35 +89,31 @@ class _SenhaViewState extends State<SenhaView> {
                       ),
                       IconButton(
                         onPressed: () {
-                          if (passwordKey.currentState!.validate()) {
-                            if (txtSenhaNew.text != txtSenhaRpt.text) {
-                              widget.msgKey.currentState!.showSnackBar(
-                                SnackBar(
-                                    content: Text('As senhas não coincidem!'),
-                                    duration: Duration(seconds: 2),
-                                    backgroundColor: Colors.black54),
+                          if (emailKey.currentState!.validate()) {
+                            widget.msgKey.currentState!.showSnackBar(
+                              SnackBar(
+                                  content: Text('As senhas não coincidem!'),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.black54),
+                            );
+                            LoginController().esqueceuSenha(
+                              context,
+                              txtEmail.text,
+                            );
+                            widget.msgKey.currentState!.showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Email para redefinir sua senha foi enviado com sucesso! Retornando para o Login...'),
+                                  duration: Duration(seconds: 10),
+                                  backgroundColor: Colors.black54),
+                            );
+                            Timer(Duration(seconds: 2), () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                'login',
+                                (Route<dynamic> route) => false,
                               );
-                            } else {
-                              // alterando a senha na estrutura global
-                              var index = srv.obterIndexPorEmail(email);
-                              if (index != null) {
-                                srv.users[index].senha = txtSenhaNew.text;
-                                widget.msgKey.currentState!.showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'A senha foi alterada com sucesso! Retornando para o Login...'),
-                                      duration: Duration(seconds: 10),
-                                      backgroundColor: Colors.black54),
-                                );
-                                Timer(Duration(seconds: 2), () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    'login',
-                                    (Route<dynamic> route) => false,
-                                  );
-                                });
-                              }
-                            }
+                            });
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),

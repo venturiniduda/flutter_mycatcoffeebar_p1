@@ -1,51 +1,21 @@
-import '../model/md_cadastro.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import '../model/md_cardapio.dart';
 import '../model/md_carrinho.dart';
+import '../controller/ct_cardapio.dart';
 
 class DadosService {
-  List<CadastroUser> users = [];
   List<Cardapio> cardapio = [];
   List<Carrinho> carrinho = [];
   double valorTotal = 0;
 
-  // FUNÇÕES PARA OS USUÁRIOS
-  void adicionarUser(CadastroUser user) {
-    users.add(user);
-  }
-
-  void removerUser(index) {
-    users.removeAt(index);
-  }
-
-  CadastroUser? retornarUser(email) {
-    for (var emailUser in users) {
-      if (emailUser.email == email) {
-        return emailUser; // Usuário encontrado
-      }
-    }
-    return null;
-  }
-
-  int? obterIndexPorEmail(String email) {
-    for (int i = 0; i < users.length; i++) {
-      if (users[i].email == email) {
-        return i;
-      }
-    }
-    return null;
-  }
-
-  bool existeUser(email) {
-    return users.any((user) => user.email == email);
-  }
-
   // FUNÇÕES PARA O CARDÁPIO
-  void preencherCardapio() {
-    Cardapio.preencher();
-  }
+  void preencherListaCardapio() {
+    cardapio = Cardapio.preencher();
 
-  void adicionarCardapio(Cardapio item) {
-    cardapio.add(item);
+    for (Cardapio item in cardapio) {
+      CardapioController().adicionar(item);
+    };
   }
 
   Cardapio retornarCardapio(id) {

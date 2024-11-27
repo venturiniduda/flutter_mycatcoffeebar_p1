@@ -1,25 +1,32 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_cadastro.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_cardapio.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_carrinho.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_detailsfood.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_home.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_login.dart';
-import 'package:flutter_mycatcoffeebar_p1/view/vw_senha.dart';
+
 import 'package:get_it/get_it.dart';
+
+import 'service/srv_dados.dart';
+import 'view/vw_cadastro.dart';
+import 'view/vw_cardapio.dart';
+import 'view/vw_carrinho.dart';
+import 'view/vw_detailsfood.dart';
+import 'view/vw_home.dart';
+import 'view/vw_login.dart';
+import 'view/vw_senha.dart';
 
 // Criando a estrutura global
 final getIt = GetIt.instance;
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   getIt.registerSingleton<DadosService>(DadosService());
-  // getIt.registerLazySingleton<DadosService>(() => DadosService());
 
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => MainApp(),
     ),
   );

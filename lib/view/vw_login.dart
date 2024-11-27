@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_cadastro.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
+
+import '../controller/ct_login.dart';
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -25,7 +26,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
-    CadastroUser.preencher();
+    // CadastroUser.preencher();
     super.initState();
   }
 
@@ -37,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
           child: Form(
             key: loginKey,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -105,24 +106,7 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       TextButton.icon(
                         onPressed: () {
-                          if (txtConta.text.isEmpty) {
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                  content: Text('Informe o email.'),
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Colors.black54),
-                            );
-                          } else if (!srv.existeUser(txtConta.text)) {
-                            widget.msgKey.currentState!.showSnackBar(
-                              SnackBar(
-                                  content: Text('Insira um email cadastrado.'),
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Colors.black54),
-                            );
-                          } else {
-                            Navigator.pushNamed(context, 'senha',
-                                arguments: txtConta.text);
-                          }
+                          Navigator.pushNamed(context, 'senha');
                         },
                         style: ButtonStyle(
                           iconSize: WidgetStateProperty.all(15),
@@ -174,34 +158,11 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           // VERIFICAÇÃO DADOS LOGIN
                           if (loginKey.currentState!.validate()) {
-                            final usuario = srv.retornarUser(txtConta.text);
-                            if (usuario == null) {
-                              //sem usuários cadastrados
-                              widget.msgKey.currentState!.showSnackBar(
-                                SnackBar(
-                                    content: Text('Usuário não cadastrado.'),
-                                    duration: Duration(seconds: 1),
-                                    backgroundColor: Colors.black54),
-                              );
-                            } else {
-                              if ((usuario.email != txtConta.text) ||
-                                  (usuario.senha != txtSenha.text)) {
-                                //senha incorreta
-                                widget.msgKey.currentState!.showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Login ou senha incorretos. Tente novamente!'),
-                                      duration: Duration(seconds: 1),
-                                      backgroundColor: Colors.black54),
-                                );
-                              } else {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'cardapio',
-                                  (Route<dynamic> route) => false,
-                                );
-                              }
-                            }
+                            LoginController().login(
+                              context,
+                              txtConta.text,
+                              txtSenha.text,
+                            );
                           }
                         },
                         icon: const Icon(Icons.check_circle, size: 50.0),
