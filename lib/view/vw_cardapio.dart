@@ -4,7 +4,9 @@ import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../controller/ct_cardapio.dart';
 import '../controller/ct_login.dart';
+import '../model/md_cardapio.dart';
 import '../service/srv_dados.dart';
 
 final DadosService srv = GetIt.instance<DadosService>();
@@ -19,6 +21,7 @@ class CardapioView extends StatefulWidget {
 class _CardapioViewState extends State<CardapioView> {
   final ScrollController _scrollController = ScrollController();
 
+  List<Cardapio> cardapio = [];
   double itemHeight = 105.0;
 
   void _scrollToNextCat(int jump) {
@@ -37,7 +40,12 @@ class _CardapioViewState extends State<CardapioView> {
 
   @override
   void initState() {
-    srv.preencherListaCardapio();
+    // srv.preencherListaCardapio();
+    cardapio = Cardapio.preencher();
+
+    for (Cardapio item in cardapio) {
+      CardapioController().adicionar(item);
+    };
     super.initState();
   }
 
@@ -78,7 +86,7 @@ class _CardapioViewState extends State<CardapioView> {
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: StreamBuilder<QuerySnapshot>(
-          stream: MenuController().listar(),
+          stream: CardapioController().listar(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:

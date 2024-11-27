@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 import '../model/md_cardapio.dart';
 
-class MenuController {
+class CardapioController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
   adicionar(Cardapio item) {

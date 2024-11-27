@@ -14,7 +14,7 @@ class DadosService {
     cardapio = Cardapio.preencher();
 
     for (Cardapio item in cardapio) {
-      MenuController().adicionar(item);
+      CardapioController().adicionar(item);
     };
   }
 
