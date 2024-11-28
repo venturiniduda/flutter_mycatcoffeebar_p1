@@ -25,10 +25,6 @@ class _LoginViewState extends State<LoginView> {
   var txtSenha = TextEditingController();
 
   @override
-  void initState() {
-    // CadastroUser.preencher();
-    super.initState();
-  }
 
   Widget build(BuildContext context) {
     return ScaffoldMessenger(

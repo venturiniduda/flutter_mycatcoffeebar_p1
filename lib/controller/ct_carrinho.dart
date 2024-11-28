@@ -8,14 +8,15 @@ import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 class CarrinhoController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future<void> adicionarItemCarrinho(context, uidItem) async {
+  Future<void> adicionarItemCarrinho(
+      BuildContext context, String uidItem) async {
     final uidUsuario = LoginController().idUsuario();
 
-    // Buscar o pedido do usuário
+    // Buscar pedido atual do usuário
     final pedidos = await selecionapedidos(uidUsuario);
 
     if (pedidos == null) {
-      // Criar novo pedido com o primeiro item
+      // Criar um novo pedido
       final novoCarrinho = Carrinho(
         codigo: uidUsuario,
         status: "Preparando",
@@ -29,10 +30,14 @@ class CarrinhoController {
         ],
       );
 
-      // Enviar o pedidos para o Firestore
-      await db.collection('pedidos').add(novoCarrinho.toJson());
+      await db
+          .collection('pedidos')
+          .doc(uidUsuario)
+          .set(novoCarrinho.toJson())
+          .then((_) => sucesso(context, 'Novo pedido criado com sucesso!'))
+          .catchError((e) => erro(context, 'Erro ao criar novo pedido.'));
     } else {
-      // Obter os dados do pedidos atual
+      // Atualizar o pedido existente
       final carrinhoAtual = Carrinho.fromJson({
         "uid": pedidos["uid"],
         "status": pedidos["status"],
@@ -40,34 +45,29 @@ class CarrinhoController {
         "itens": pedidos["itens"],
       });
 
-      // Verificar se o item já existe no pedidos
+      // Verificar se o item já existe no carrinho
       final itemExistente = carrinhoAtual.itens.firstWhere(
         (item) => item.itemId == uidItem,
+        orElse: () => null,
       );
 
       if (itemExistente != null) {
-        // Incrementar a quantidade do item existente
-        itemExistente.quantidade += 1;
+        itemExistente.quantidade += 1; // Incrementar quantidade
       } else {
-        // Adicionar novo item ao carrinho
-        carrinhoAtual.itens.add(
-          ItemCarrinho(
-            itemId: uidItem,
-            preco: await buscarPrecoItem(uidItem),
-            quantidade: 1,
-          ),
-        );
+        carrinhoAtual.itens.add(ItemCarrinho(
+          itemId: uidItem,
+          preco: await buscarPrecoItem(uidItem),
+          quantidade: 1,
+        ));
       }
 
-      // Atualizar o pedidos no Firestore
-      db
+      await db
           .collection('pedidos')
-          .doc(LoginController().idUsuario())
+          .doc(uidUsuario)
           .update(carrinhoAtual.toJson())
-          .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
-          .catchError((e) =>
-              erro(context, 'Não foi possível adicionar o item ao pedido.'))
-          .whenComplete(() => Navigator.pop(context));
+          .then((_) => sucesso(context, 'Item adicionado com sucesso!'))
+          .catchError(
+              (e) => erro(context, 'Erro ao adicionar item ao pedido.'));
     }
   }
 
@@ -179,7 +179,7 @@ class CarrinhoController {
     }
   }
 
-  Future<double> buscarPrecoItem(String uidItem) async {
+  Future<double> buscarPrecoItem(uidItem) async {
     // Buscar informações do item
     final item = await db.collection('itens_cardapio').doc(uidItem).get();
     if (item.exists) {
