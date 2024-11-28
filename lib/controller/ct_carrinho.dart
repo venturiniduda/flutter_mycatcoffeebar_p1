@@ -45,22 +45,22 @@ class CarrinhoController {
         "itens": pedidos["itens"],
       });
 
-      // Verificar se o item já existe no carrinho
-      final itemExistente = carrinhoAtual.itens.firstWhere(
-        (item) => item.itemId == uidItem,
-        orElse: () => null,
-      );
+      final itemExistenteIndex =
+          carrinhoAtual.itens.indexWhere((item) => item.itemId == uidItem);
 
-      if (itemExistente != null) {
-        itemExistente.quantidade += 1; // Incrementar quantidade
+      if (itemExistenteIndex != -1) {
+        // O item já existe no carrinho
+        carrinhoAtual.itens[itemExistenteIndex].quantidade += 1;
       } else {
-        carrinhoAtual.itens.add(ItemCarrinho(
-          itemId: uidItem,
-          preco: await buscarPrecoItem(uidItem),
-          quantidade: 1,
-        ));
+        // Adicionar o novo item
+        carrinhoAtual.itens.add(
+          ItemCarrinho(
+            itemId: uidItem,
+            preco: await buscarPrecoItem(uidItem),
+            quantidade: 1,
+          ),
+        );
       }
-
       await db
           .collection('pedidos')
           .doc(uidUsuario)
