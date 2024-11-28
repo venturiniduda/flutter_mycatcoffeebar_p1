@@ -20,7 +20,6 @@ class _DetalhesViewState extends State<DetalhesView> {
   @override
   Widget build(BuildContext context) {
     final String idCardapio = ModalRoute.of(context)!.settings.arguments as String;
-    srv.retornarCardapio(idCardapio);
 
     return Scaffold(
       backgroundColor: Colors.brown.shade100,
