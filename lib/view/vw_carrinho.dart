@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_mycatcoffeebar_p1/controller/ct_carrinho.dart';
+import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-final DadosService srv = GetIt.instance<DadosService>();
+final CarrinhoController carrinhoController = CarrinhoController();
 
 class CarrinhoView extends StatefulWidget {
   const CarrinhoView({super.key});
@@ -26,14 +28,12 @@ class _CarrinhoViewState extends State<CarrinhoView> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            padding: EdgeInsets.only(right: 30),
             onPressed: () {
               Navigator.pushReplacementNamed(context, 'cardapio');
             },
             icon: const Icon(Icons.menu_book, size: 25.0),
             color: Colors.black,
             tooltip: 'Abrir Cardápio',
-            alignment: Alignment.centerRight,
           ),
         ],
       ),
@@ -46,96 +46,125 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                   fontSize: 35,
                 )),
             Expanded(
-              child: SizedBox(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: srv.carrinho.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(srv.carrinho[index].nome,
-                            style: TextStyle(fontSize: 22)),
-                        subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                'Quantidade: ${NumberFormat('#0').format(srv.carrinho[index].quantidade)}',
-                                style: TextStyle(fontSize: 14),
-                                textAlign: TextAlign.left),
-                            Text(
-                                'Valor unitário: R\$ ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorunit)}',
-                                style: TextStyle(fontSize: 14),
-                                textAlign: TextAlign.left),
-                            Text(
-                                'Total: R\$ ${NumberFormat('#,##0.00').format(srv.carrinho[index].valorTotalItm)}',
-                                style: TextStyle(fontSize: 14),
-                                textAlign: TextAlign.left),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  srv.adicionarCarrinho(srv.carrinho[index]);
-                                });
-                              },
-                              child: Icon(Icons.add),
-                            ),
-                            SizedBox(height: 20),
-                            InkWell(
-                              onTap: () {
-                                // remover uma unidade do item no pedido
-                                setState(() {
-                                  srv.removerUnidCarrinho(index);
-                                });
-                              },
-                              child: Icon(Icons.remove),
-                            ),
-                            SizedBox(height: 20),
-                            InkWell(
-                              onTap: () {
-                                // remover o item do pedido
-                                setState(() {
-                                  srv.removerItmCarrinho(index);
-                                });
-                              },
-                              child: Icon(Icons.delete),
-                            ),
-                          ],
-                        ),
-                      ),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: carrinhoController.listar(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                ),
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Erro ao carregar os itens.'),
+                    );
+                  }
+
+                  final dados = snapshot.data;
+
+                  if (dados == null || dados.docs.isEmpty) {
+                    return Center(
+                      child: Text('O pedido está vazio.'),
+                    );
+                  }
+
+                  final itensCarrinho = dados.docs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>;
+                    return ItemCarrinho(
+                      itemId: data['item_id'],
+                      preco: data['preco'],
+                      quantidade: data['quantidade'],
+                    );
+                  }).toList();
+
+                  return ListView.builder(
+                    itemCount: itensCarrinho.length,
+                    itemBuilder: (context, index) {
+                      final item = itensCarrinho[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                            'Item: ${item.itemId}',
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Quantidade: ${item.quantidade}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                'Valor unitário: R\$ ${item.preco.toStringAsFixed(2)}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                'Total: R\$ ${(item.quantidade * item.preco).toStringAsFixed(2)}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () async {
+                                  await carrinhoController
+                                      .adicionarItemCarrinho(context, item.itemId);
+                                  setState(() {});
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () async {
+                                  await carrinhoController
+                                      .removerItemCarrinho(context, item.itemId);
+                                  setState(() {});
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  await carrinhoController
+                                      .removerItemCarrinho(context, item.itemId);
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text('Valor Total',
                 style: GoogleFonts.reenieBeanie(
                   fontSize: 35,
                 )),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
-              "R\$ ${NumberFormat('#,##0.00').format(srv.valorTotal)}",
-              style: TextStyle(fontSize: 30),
+              "R\$ ${carrinhoController.calcularValorTotal()}",
+              style: const TextStyle(fontSize: 30),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Pedido confirmado! Obrigada.',
-                        style: TextStyle(fontSize: 15)),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Pedido confirmado! Obrigada.'),
                     duration: Duration(seconds: 2),
-                    backgroundColor: Colors.black54));
+                    backgroundColor: Colors.black54,
+                  ),
+                );
               },
-              icon: Icon(Icons.restaurant),
+              icon: const Icon(Icons.restaurant),
               style: ElevatedButton.styleFrom(iconColor: Colors.black),
-              label: Text(
+              label: const Text(
                 'Confirmar o Pedido',
                 style: TextStyle(color: Colors.black, fontSize: 15),
               ),
