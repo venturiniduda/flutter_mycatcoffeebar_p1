@@ -12,9 +12,9 @@ class CarrinhoController {
     final uidUsuario = LoginController().idUsuario();
 
     // Buscar o pedido do usuário
-    final pedido = await selecionaPedido(uidUsuario);
+    final pedidos = await selecionapedidos(uidUsuario);
 
-    if (pedido == null) {
+    if (pedidos == null) {
       // Criar novo pedido com o primeiro item
       final novoCarrinho = Carrinho(
         codigo: uidUsuario,
@@ -29,18 +29,18 @@ class CarrinhoController {
         ],
       );
 
-      // Enviar o pedido para o Firestore
-      await db.collection('pedido').add(novoCarrinho.toJson());
+      // Enviar o pedidos para o Firestore
+      await db.collection('pedidos').add(novoCarrinho.toJson());
     } else {
-      // Obter os dados do pedido atual
+      // Obter os dados do pedidos atual
       final carrinhoAtual = Carrinho.fromJson({
-        "uid": pedido["uid"],
-        "status": pedido["status"],
-        "data_hora": pedido["data_hora"],
-        "itens": pedido["itens"],
+        "uid": pedidos["uid"],
+        "status": pedidos["status"],
+        "data_hora": pedidos["data_hora"],
+        "itens": pedidos["itens"],
       });
 
-      // Verificar se o item já existe no pedido
+      // Verificar se o item já existe no pedidos
       final itemExistente = carrinhoAtual.itens.firstWhere(
         (item) => item.itemId == uidItem,
       );
@@ -59,9 +59,9 @@ class CarrinhoController {
         );
       }
 
-      // Atualizar o pedido no Firestore
+      // Atualizar o pedidos no Firestore
       db
-          .collection('pedido')
+          .collection('pedidos')
           .doc(LoginController().idUsuario())
           .update(carrinhoAtual.toJson())
           .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
@@ -71,10 +71,10 @@ class CarrinhoController {
     }
   }
 
-  Future<Map<String, dynamic>?> selecionaPedido(String uidUsuario) async {
+  Future<Map<String, dynamic>?> selecionapedidos(String uidUsuario) async {
     // Buscar pedido do usuário pelo UID
     final querySnapshot = await db
-        .collection('pedido')
+        .collection('pedidos')
         .where('uid', isEqualTo: uidUsuario)
         .where('status', isEqualTo: "Preparando")
         .get();
@@ -90,26 +90,26 @@ class CarrinhoController {
       };
     }
 
-    // Retorna null se nenhum pedido for encontrado
+    // Retorna null se nenhum pedidos for encontrado
     return null;
   }
 
   Future<void> removerUnidItemCarrinho(context, uidItem) async {
     final uidUsuario = LoginController().idUsuario();
 
-    // Buscar o pedido do usuário
-    final pedido = await selecionaPedido(uidUsuario);
+    // Buscar o pedidos do usuário
+    final pedidos = await selecionapedidos(uidUsuario);
 
-    if (pedido == null) {
-      // Nenhum pedido em andamento encontrado
+    if (pedidos == null) {
+      // Nenhum pedidos em andamento encontrado
       throw Exception("Nenhum pedido encontrado para o usuário.");
     } else {
-      // Obter os dados do pedido atual
+      // Obter os dados do pedidos atual
       final carrinhoAtual = Carrinho.fromJson({
-        "uid": pedido["uid"],
-        "status": pedido["status"],
-        "data_hora": pedido["data_hora"],
-        "itens": pedido["itens"],
+        "uid": pedidos["uid"],
+        "status": pedidos["status"],
+        "data_hora": pedidos["data_hora"],
+        "itens": pedidos["itens"],
       });
 
       // Localizar o item no carrinho
@@ -126,7 +126,7 @@ class CarrinhoController {
         }
 
         db
-            .collection('pedido')
+            .collection('pedidos')
             .doc(LoginController().idUsuario())
             .update(carrinhoAtual.toJson())
             .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
@@ -143,18 +143,18 @@ class CarrinhoController {
     final uidUsuario = LoginController().idUsuario();
 
     // Buscar o pedido do usuário
-    final pedido = await selecionaPedido(uidUsuario);
+    final pedidos = await selecionapedidos(uidUsuario);
 
-    if (pedido == null) {
-      // Nenhum pedido em andamento encontrado
+    if (pedidos == null) {
+      // Nenhum pedidos em andamento encontrado
       throw Exception("Nenhum pedido encontrado para o usuário.");
     } else {
-      // Obter os dados do pedido atual
+      // Obter os dados do pedidos atual
       final carrinhoAtual = Carrinho.fromJson({
-        "uid": pedido["uid"],
-        "status": pedido["status"],
-        "data_hora": pedido["data_hora"],
-        "itens": pedido["itens"],
+        "uid": pedidos["uid"],
+        "status": pedidos["status"],
+        "data_hora": pedidos["data_hora"],
+        "itens": pedidos["itens"],
       });
 
       // Localizar o item no carrinho
@@ -166,7 +166,7 @@ class CarrinhoController {
         carrinhoAtual.itens.remove(itemExistente);
 
         db
-            .collection('pedido')
+            .collection('pedidos')
             .doc(LoginController().idUsuario())
             .update(carrinhoAtual.toJson())
             .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
@@ -192,15 +192,15 @@ class CarrinhoController {
     final uidUsuario = LoginController().idUsuario();
 
     // Buscar o pedido do usuário
-    final pedido = await selecionaPedido(uidUsuario);
+    final pedidos = await selecionapedidos(uidUsuario);
 
-    if (pedido == null) {
+    if (pedidos == null) {
       // Nenhum pedido encontrado, valor total é 0
       return 0.0;
     }
 
     // Extrair itens do pedido
-    final itens = (pedido["itens"] as List<dynamic>).map((item) {
+    final itens = (pedidos["itens"] as List<dynamic>).map((item) {
       return ItemCarrinho(
         itemId: item['item_id'],
         preco: item['preco'],
@@ -219,7 +219,7 @@ class CarrinhoController {
   Stream<QuerySnapshot> listar() {
     // Retorna o pedido e seus itens
     return db
-        .collection('pedido')
+        .collection('pedidos')
         .where('uid', isEqualTo: LoginController().idUsuario())
         .snapshots();
   }
