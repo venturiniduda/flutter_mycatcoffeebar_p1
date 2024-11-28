@@ -135,6 +135,8 @@ class CarrinhoController {
             .whenComplete(() => Navigator.pop(context));
       }
     }
+
+    calcularValorTotal();
   }
 
   Future<void> removerItemCarrinho(context, uidItem) async {
@@ -171,6 +173,8 @@ class CarrinhoController {
             .catchError((e) =>
                 erro(context, 'Não foi possível adicionar o item ao pedido.'))
             .whenComplete(() => Navigator.pop(context));
+
+        calcularValorTotal();
       }
     }
   }
