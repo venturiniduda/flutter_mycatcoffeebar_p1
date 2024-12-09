@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
+import 'package:flutter_mycatcoffeebar_p1/controller/ct_carrinho.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -231,13 +231,9 @@ class _CardapioViewState extends State<CardapioView> {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          srv.adicionarCarrinho(Carrinho(
-                                              item['uid'],
-                                              item['nome'],
-                                              item['categoria'],
-                                              item['valor'],
-                                              1,
-                                              0));
+                                          CarrinhoController()
+                                              .adicionarItemCarrinho(
+                                                  context, item['uid']);
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(

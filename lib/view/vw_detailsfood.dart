@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/controller/ct_cardapio.dart';
+import 'package:flutter_mycatcoffeebar_p1/controller/ct_carrinho.dart';
 import 'package:flutter_mycatcoffeebar_p1/service/srv_dados.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import '../model/md_carrinho.dart';
 
 final DadosService srv = GetIt.instance<DadosService>();
 
@@ -19,8 +19,7 @@ class DetalhesView extends StatefulWidget {
 class _DetalhesViewState extends State<DetalhesView> {
   @override
   Widget build(BuildContext context) {
-    final int idCardapio = ModalRoute.of(context)!.settings.arguments as int;
-    srv.retornarCardapio(idCardapio);
+    final String idCardapio = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
       backgroundColor: Colors.brown.shade100,
@@ -82,13 +81,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                           ),
                           IconButton(
                             onPressed: () {
-                              srv.adicionarCarrinho(Carrinho(
-                                  item['uid'],
-                                  item['nome'],
-                                  item['categoria'],
-                                  item['valor'],
-                                  1,
-                                  0));
+                              CarrinhoController().adicionarItemCarrinho(context, item['uid']);
 
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text(
@@ -107,7 +100,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                   );
                 } else {
                   return Center(
-                    child: Text('Nenhuma tarefa encontrada.'),
+                    child: Text('Nenhum item encontrado.'),
                   );
                 }
             }
