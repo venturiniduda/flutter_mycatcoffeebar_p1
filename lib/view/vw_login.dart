@@ -35,139 +35,143 @@ class _LoginViewState extends State<LoginView> {
             key: loginKey,
             child: Padding(
               padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'lib/images/logo.png',
-                    height: MediaQuery.of(context).size.height * .08,
-                    width: MediaQuery.of(context).size.height * .9,
-                  ),
-                  Text(
-                    'Login',
-                    style: GoogleFonts.reenieBeanie(fontSize: 150),
-                    textAlign: TextAlign.end,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      controller: txtConta,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Insira seu email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                      ),
-                      validator: (txtConta) {
-                        if (txtConta == null) {
-                          return 'Informe o Email';
-                        } else if (txtConta.isEmpty) {
-                          return 'Informe o Email';
-                        } else {
-                          if (!EmailValidator.validate(txtConta)) {
-                            return 'Digite um Email válido!';
-                          }
-                          return null;
-                        }
-                      }),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                      controller: txtSenha,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        labelStyle: TextStyle(color: Colors.black),
-                        hintText: 'Insira sua senha',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                      ),
-                      validator: (txtSenha) {
-                        if (txtSenha == null) {
-                          return 'Informe a Senha';
-                        } else if (txtSenha.isEmpty) {
-                          return 'Informe a Senha';
-                        }
-                        return null;
-                      }),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'senha');
-                        },
-                        style: ButtonStyle(
-                          iconSize: WidgetStateProperty.all(15),
-                        ),
-                        icon: Icon(Icons.key_off),
-                        label: Text(
-                          'Esqueci a senha',
-                          style: TextStyle(
-                            fontSize: 15,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.9,
+                width: MediaQuery.of(context).size.height * .9,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'lib/images/logo.png',
+                      height: MediaQuery.of(context).size.height * .9,
+                      width: MediaQuery.of(context).size.height * .9,
+                    ),
+                    Text(
+                      'Login',
+                      style: GoogleFonts.reenieBeanie(fontSize: 150),
+                      textAlign: TextAlign.end,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                        controller: txtConta,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: 'Insira seu email',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50.0),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'home',
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        icon: const Icon(Icons.cancel, size: 50.0),
-                        color: Colors.red,
-                        tooltip: 'Cancelar',
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'cadastro',
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        icon: const Icon(Icons.add_circle, size: 50.0),
-                        color: Colors.blue,
-                        tooltip: 'Cadastrar Usuário',
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // VERIFICAÇÃO DADOS LOGIN
-                          if (loginKey.currentState!.validate()) {
-                            LoginController().login(
-                              context,
-                              txtConta.text,
-                              txtSenha.text,
-                            );
+                        validator: (txtConta) {
+                          if (txtConta == null) {
+                            return 'Informe o Email';
+                          } else if (txtConta.isEmpty) {
+                            return 'Informe o Email';
+                          } else {
+                            if (!EmailValidator.validate(txtConta)) {
+                              return 'Digite um Email válido!';
+                            }
+                            return null;
                           }
-                        },
-                        icon: const Icon(Icons.check_circle, size: 50.0),
-                        color: Colors.green,
-                        tooltip: 'Realizar o Login',
-                      ),
-                    ],
-                  ),
-                ],
+                        }),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                        controller: txtSenha,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: 'Insira sua senha',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                        ),
+                        validator: (txtSenha) {
+                          if (txtSenha == null) {
+                            return 'Informe a Senha';
+                          } else if (txtSenha.isEmpty) {
+                            return 'Informe a Senha';
+                          }
+                          return null;
+                        }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'senha');
+                          },
+                          style: ButtonStyle(
+                            iconSize: WidgetStateProperty.all(15),
+                          ),
+                          icon: Icon(Icons.key_off),
+                          label: Text(
+                            'Esqueci a senha',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'home',
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                          icon: const Icon(Icons.cancel, size: 50.0),
+                          color: Colors.red,
+                          tooltip: 'Cancelar',
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'cadastro',
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                          icon: const Icon(Icons.add_circle, size: 50.0),
+                          color: Colors.blue,
+                          tooltip: 'Cadastrar Usuário',
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // VERIFICAÇÃO DADOS LOGIN
+                            if (loginKey.currentState!.validate()) {
+                              LoginController().login(
+                                context,
+                                txtConta.text,
+                                txtSenha.text,
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.check_circle, size: 50.0),
+                          color: Colors.green,
+                          tooltip: 'Realizar o Login',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
