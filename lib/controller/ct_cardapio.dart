@@ -17,7 +17,7 @@ class CardapioController {
 
   Stream<QuerySnapshot> listar(String categoria) {
     var resultado;
-    if (categoria == '') {
+    if (categoria == "") {
       resultado = db.collection('itens_cardapio').orderBy('uid');
     } else {
       resultado = db
