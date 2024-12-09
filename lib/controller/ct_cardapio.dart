@@ -15,19 +15,18 @@ class CardapioController {
     db.collection('categorias').add(cat.toJson());
   }
 
-  Stream<QuerySnapshot> listar(categoria) {
+  Stream<QuerySnapshot> listar(String categoria) {
     var resultado;
     if (categoria == '') {
       resultado = db.collection('itens_cardapio').orderBy('uid');
     } else {
       resultado = db
           .collection('itens_cardapio')
-          .where('categoria', isEqualTo: categoria)
-          .orderBy('uid');
+          .where('categoria', isEqualTo: categoria);
     }
     return resultado.snapshots();
   }
-  
+
   Stream<QuerySnapshot> detalhes(id) {
     var resultado = db.collection('itens_cardapio').where('id', isEqualTo: id);
     return resultado.snapshots();

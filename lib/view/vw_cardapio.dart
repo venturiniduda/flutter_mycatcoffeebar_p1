@@ -88,9 +88,9 @@ class _CardapioViewState extends State<CardapioView> {
               children: <Widget>[
                 TextButton.icon(
                   onPressed: () {
-                    categoria = 'Entradas';
                     setState(() {
-                      _scrollToNextCat(0);
+                      categoria = 'Entrada';
+                      // _scrollToNextCat(0);
                     });
                   },
                   style: TextButton.styleFrom(
@@ -110,9 +110,9 @@ class _CardapioViewState extends State<CardapioView> {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    categoria = 'Pratos Principais';
                     setState(() {
-                      _scrollToNextCat(10);
+                      categoria = 'Prato Principal';
+                      // _scrollToNextCat(10);
                     });
                   },
                   style: TextButton.styleFrom(
@@ -132,9 +132,9 @@ class _CardapioViewState extends State<CardapioView> {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    categoria = 'Doces';
                     setState(() {
-                      _scrollToNextCat(18);
+                      categoria = 'Doce';
+                      // _scrollToNextCat(18);
                     });
                   },
                   style: TextButton.styleFrom(
@@ -154,10 +154,12 @@ class _CardapioViewState extends State<CardapioView> {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    categoria = 'Bebidas';
                     setState(() {
-                      _scrollToNextCat(31);
+                      categoria = 'Bebidas';
                     });
+                    // setState(() {
+                    //   _scrollToNextCat(31);
+                    // });
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.brown.shade200,
@@ -194,6 +196,10 @@ class _CardapioViewState extends State<CardapioView> {
                   default:
                     final dados = snapshot.requireData;
                     if (dados.size > 0) {
+                      Text(
+                        'teste 123',
+                        style: TextStyle(fontSize: 16.0, color: Colors.black),
+                      );
                       return Expanded(
                         child: ListView.builder(
                           controller: _scrollController,
