@@ -44,8 +44,8 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   Image.asset(
                     'lib/images/logo.png',
-                    height: 250,
-                    width: 350,
+                    height: MediaQuery.of(context).size.height * .08,
+                    width: MediaQuery.of(context).size.height * .9,
                   ),
                   Text(
                     'Login',
