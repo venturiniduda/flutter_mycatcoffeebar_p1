@@ -12,7 +12,9 @@ import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 class CarrinhoController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  adicionarItemCarrinho(context, Carrinho pedido) {
+  adicionarItemCarrinho(context, pedido) {
+    // to do: recebe item e passa para json formato carrinho
+
     var pedidoExiste = selecionapedidos(LoginController().idUsuario());
 
     if (pedidoExiste.isNotEmpty) {
