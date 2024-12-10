@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import '../model/md_cardapio.dart';
 import '../model/md_categorias.dart';
 
@@ -27,8 +26,8 @@ class CardapioController {
     return resultado.snapshots();
   }
 
-  Stream<QuerySnapshot> detalhes(id) {
-    var resultado = db.collection('itens_cardapio').where('id', isEqualTo: id);
+  Stream<QuerySnapshot> detalhes(uid) {
+    var resultado = db.collection('itens_cardapio').where('uid', isEqualTo: uid);
     return resultado.snapshots();
   }
 }

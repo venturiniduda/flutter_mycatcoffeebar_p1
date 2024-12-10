@@ -86,7 +86,7 @@ class _CardapioViewState extends State<CardapioView> {
               spacing: 5.0,
               runSpacing: 5.0,
               children: <Widget>[
-                IconButton(
+                TextButton.icon(
                   onPressed: () {
                     setState(() {
                       categoria = "";
@@ -95,13 +95,18 @@ class _CardapioViewState extends State<CardapioView> {
                   style: TextButton.styleFrom(
                     minimumSize: Size(10.0, 8.0),
                     backgroundColor: Colors.brown.shade200,
-                    // padding:
-                    //     EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                   ),
-                  icon: const Icon(Icons.all_inclusive),
-                  iconSize: 20.0,
-                  color: Colors.black,
-                  tooltip: "Exibir tudo",
+                  icon: const Icon(
+                    Icons.all_inclusive,
+                    size: 20.0,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'All',
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  ),
                 ),
                 TextButton.icon(
                   onPressed: () {
@@ -256,7 +261,7 @@ class _CardapioViewState extends State<CardapioView> {
                                         onTap: () {
                                           CarrinhoController()
                                               .adicionarItemCarrinho(
-                                                  context, item['uid']);
+                                                  context, item);
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -277,7 +282,7 @@ class _CardapioViewState extends State<CardapioView> {
                                           // abrir detalhes do item
                                           Navigator.pushNamed(
                                               context, 'detalhes',
-                                              arguments: id);
+                                              arguments: item);
                                         },
                                         child: Icon(Icons.arrow_right),
                                       ),
