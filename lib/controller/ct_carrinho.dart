@@ -9,6 +9,7 @@ import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 // lógica atualização status pedido
 // lógica zerar carrinho e valor total quando pedido for concluído
 // lógica alterar quantidade item
+
 class CarrinhoController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -121,8 +122,8 @@ class CarrinhoController {
       // Localizar o item no carrinho
       var itemExistente =
           carrinhoAtual.itens.firstWhere((item) => item.itemId == uidItem);
-
-      if (itemExistente != null) {
+        
+      if (itemExistente.requireData.size > 0) {
         if (itemExistente.quantidade > 1) {
           // Reduzir a quantidade do item
           itemExistente.quantidade -= 1;
