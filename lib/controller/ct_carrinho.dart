@@ -52,14 +52,14 @@ class CarrinhoController {
         await db.collection('pedidos').add(novoCarrinho.toJson());
         sucesso(context, 'Novo pedido criado com sucesso!');
       } else {
-// Atualiza o carrinho existente
+        // Atualiza o carrinho existente
         final carrinhoDoc = pedidoDocs.first;
         final carrinhoData = carrinhoDoc.data() as Map<String, dynamic>;
         final carrinhoAtual = Carrinho.fromJson(carrinhoData);
 
         // Verifica se o item já está no carrinho
         final indexItemExistente =
-            carrinhoAtual.itens.indexWhere((e) => e.itemId == item.itemId);
+            carrinhoAtual.itens.indexWhere((e) => e.itemId == uidItem);
 
         if (indexItemExistente >= 0) {
           // Atualiza a quantidade do item existente
