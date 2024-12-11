@@ -52,36 +52,29 @@ class CarrinhoController {
         await db.collection('pedidos').add(novoCarrinho.toJson());
         sucesso(context, 'Novo pedido criado com sucesso!');
       } else {
-        final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
+// Atualiza o carrinho existente
+        final carrinhoDoc = pedidoDocs.first;
+        final carrinhoData = carrinhoDoc.data() as Map<String, dynamic>;
+        final carrinhoAtual = Carrinho.fromJson(carrinhoData);
 
-        // Atualizar o pedido existente
-        final carrinhoAtual = Carrinho.fromJson(pedido);
+        // Verifica se o item já está no carrinho
+        final indexItemExistente =
+            carrinhoAtual.itens.indexWhere((e) => e.itemId == item.itemId);
 
-        // Verificar se o item já está no carrinho
-        final indexItem =
-            carrinhoAtual.itens.indexWhere((e) => e.itemId == item['uid']);
-        if (indexItem >= 0) {
-          // Incrementar a quantidade do item existente
-          carrinhoAtual.itens[indexItem].quantidade++;
+        if (indexItemExistente >= 0) {
+          // Atualiza a quantidade do item existente
+          carrinhoAtual.itens[indexItemExistente].quantidade += 1;
         } else {
-          // Adicionar novo item ao carrinho
-          carrinhoAtual.itens.add(ItemCarrinho(
-            nomeItem: item['nome'],
-            itemId: item['uid'],
-            preco: item['valor'],
-            quantidade: 1,
-          ));
+          // Adiciona o novo item ao carrinho
+          carrinhoAtual.itens.add(item);
         }
 
-        // Atualizar o pedido no Firestore
+        // Atualiza o carrinho no Firestore
         await db
             .collection('pedidos')
-            .doc(pedidoDocs.first.id)
-            .update(carrinhoAtual.toJson())
-            .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
-            .catchError((e) => erro(context,
-                'Não foi possivel realizar a operação! ${pedidoDocs.first.id}'));
-        ;
+            .doc(carrinhoDoc.id)
+            .update(carrinhoAtual.toJson());
+        sucesso(context, 'Item adicionado ao carrinho existente!');
       }
     } catch (e) {
       erro(context, 'Erro ao adicionar item ao carrinho: $e');
@@ -96,6 +89,26 @@ class CarrinhoController {
         .where('status', isEqualTo: "Preparando");
 
     return resultado.snapshots();
+  }
+
+  Future<void> concluirPedido(context) async {
+    // try {
+    //   var pedidoSnapshot =
+    //       await selecionapedidos(LoginController().idUsuario()).first;
+    //   final pedidoDocs = pedidoSnapshot.docs;
+
+    //   pedido['status'] = "Concluido";
+
+    //   await db
+    //       .collection('pedidos')
+    //       .doc(pedidoDocs.first.id)
+    //       .update(pedido)
+    //       .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
+    //       .catchError((e) => erro(context,
+    //           'Não foi possivel realizar a operação! ${pedidoDocs.first.id}'));
+    // } catch (e) {
+    //   erro(context, 'Erro ao adicionar item ao carrinho: $e');
+    // }
   }
 
   removerUnidItemCarrinho(context, uidItem) {
