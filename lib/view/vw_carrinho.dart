@@ -14,6 +14,20 @@ class CarrinhoView extends StatefulWidget {
 }
 
 class _CarrinhoViewState extends State<CarrinhoView> {
+  double valorTotal = 0.0;
+
+  void initState() {
+    super.initState();
+    atualizarValorTotal();
+  }
+
+  Future<void> atualizarValorTotal() async {
+    final total = await carrinhoController.calcularValorTotal();
+    setState(() {
+      valorTotal = total;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +106,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                     Text(
-                                      'Total: R\$ ${(item.quantidade * item.preco).toStringAsFixed(2)}',
+                                      'Total: R\$ ${valorTotal.toStringAsFixed(2)}',
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -112,19 +126,19 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                                     IconButton(
                                       icon: const Icon(Icons.remove),
                                       onPressed: () async {
-                                        await carrinhoController
-                                            .removerItemCarrinho(
-                                                context, item.itemId);
-                                        setState(() {});
+                                        // await carrinhoController
+                                        //     .removerItemCarrinho(
+                                        //         context, item.itemId);
+                                        // setState(() {});
                                       },
                                     ),
                                     IconButton(
                                       icon: const Icon(Icons.delete),
                                       onPressed: () async {
-                                        await carrinhoController
-                                            .removerItemCarrinho(
-                                                context, item.itemId);
-                                        setState(() {});
+                                        // await carrinhoController
+                                        //     .removerItemCarrinho(
+                                        //         context, item.itemId);
+                                        // setState(() {});
                                       },
                                     ),
                                   ],
