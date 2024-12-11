@@ -164,7 +164,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
             ),
             const SizedBox(height: 10),
             Text(
-              "R\$ ${valorTotal.toStringAsFixed(2)}", 
+               "R\$ ${valorTotal.toStringAsFixed(2)}",
               style: const TextStyle(fontSize: 30),
             ),
             const SizedBox(height: 20),

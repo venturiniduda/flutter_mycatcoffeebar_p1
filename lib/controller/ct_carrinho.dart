@@ -189,30 +189,35 @@ class CarrinhoController {
       var pedidoSnapshot =
           await selecionapedidos(LoginController().idUsuario()).first;
       final pedidoDocs = pedidoSnapshot.docs;
-      final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
 
       if (pedidoDocs.isEmpty) {
         // Nenhum pedido encontrado, valor total é 0
         return 0.0;
       }
 
+      // Extrair dados do primeiro documento
+      final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
+
+      if (pedido['itens'] == null || (pedido['itens'] as List).isEmpty) {
+        return 0.0; // Nenhum item no pedido
+      }
+
       // Extrair itens do pedido
-      var itens = (pedido['itens'] as List<dynamic>).map((item) {
+      final itens = (pedido['itens'] as List<dynamic>).map((item) {
         return ItemCarrinho(
           itemId: item['item_id'],
           preco: (item['preco'] as num).toDouble(),
-          quantidade: item['quantidade'],
+          quantidade: (item['quantidade'] as num).toInt(),
         );
       }).toList();
 
       // Calcular o total
-      double total = itens.fold(0.0, (somaT, item) {
+      final total = itens.fold(0.0, (somaT, item) {
         return somaT + (item.preco * item.quantidade);
       });
 
       return total;
     } catch (e) {
-      // Caso ocorra algum erro, retorna 0 e pode exibir logs adicionais
       return 0.0;
     }
   }
