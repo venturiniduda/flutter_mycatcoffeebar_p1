@@ -10,26 +10,31 @@ import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 // lógica atualização status pedido
 // lógica zerar carrinho e valor total quando pedido for concluído
 // lógica alterar quantidade item
+// lógica adicionar: pegar uid automatico do pedido igual fazemos do usuario para depois adicionar na coleção
+// erro bad state - no element
 
 class CarrinhoController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<void> adicionarItemCarrinho(context, uidItem) async {
     try {
+      final item;
       var pedidoSnapshot =
           await selecionapedidos(LoginController().idUsuario()).first;
       final pedidoDocs = pedidoSnapshot.docs;
-      final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
+      print('pedidoSnapshot.docs: ${pedidoSnapshot.docs}');
 
       final itemSnapshot = await CardapioController().detalhes(uidItem).first;
       final itemDocs = itemSnapshot.docs;
+      print('itemSnapshot.docs: ${itemSnapshot.docs}');
+      print('uidItem recebido: $uidItem');
 
       if (itemDocs.isEmpty) {
         erro(context, 'Item não encontrado!');
         return;
+      } else {
+        item = itemDocs.first.data() as Map<String, dynamic>;
       }
-
-      final item = itemDocs.first.data() as Map<String, dynamic>;
 
       if (pedidoDocs.isEmpty) {
         // Criar um novo pedido
@@ -51,7 +56,10 @@ class CarrinhoController {
             .doc(LoginController().idUsuario())
             .set(novoCarrinho.toJson());
         sucesso(context, 'Novo pedido criado com sucesso!');
+        
       } else {
+        final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
+
         // Atualizar o pedido existente
         final carrinhoAtual = Carrinho.fromJson(pedido);
 
