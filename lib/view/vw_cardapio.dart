@@ -261,7 +261,7 @@ class _CardapioViewState extends State<CardapioView> {
                                         onTap: () {
                                           CarrinhoController()
                                               .adicionarItemCarrinho(
-                                                  context, item);
+                                                  context, item["uid"]);
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(

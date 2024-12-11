@@ -62,7 +62,7 @@ class _DetalhesViewState extends State<DetalhesView> {
                 IconButton(
                   onPressed: () {
                     CarrinhoController()
-                        .adicionarItemCarrinho(context, item);
+                        .adicionarItemCarrinho(context, item["uid"]);
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
