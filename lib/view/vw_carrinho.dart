@@ -14,18 +14,26 @@ class CarrinhoView extends StatefulWidget {
 }
 
 class _CarrinhoViewState extends State<CarrinhoView> {
-  double valorTotal = 0.0;
+  double valorTotal = 0.0; // Armazena o valor total
 
+  @override
   void initState() {
     super.initState();
-    atualizarValorTotal();
+    atualizarValorTotal(); // Atualiza o valor total ao iniciar a tela
   }
 
+  /// Atualiza o valor total do carrinho
   Future<void> atualizarValorTotal() async {
-    final total = await carrinhoController.calcularValorTotal();
-    setState(() {
-      valorTotal = total;
-    });
+    try {
+      final total = await carrinhoController.calcularValorTotal();
+      setState(() {
+        valorTotal = total; // Atualiza o estado com o valor calculado
+      });
+    } catch (e) {
+      setState(() {
+        valorTotal = 0.0; // Em caso de erro, define o total como 0
+      });
+    }
   }
 
   @override
@@ -53,117 +61,110 @@ class _CarrinhoViewState extends State<CarrinhoView> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text('Itens',
-                style: GoogleFonts.reenieBeanie(
-                  fontSize: 35,
-                )),
+            Text(
+              'Itens',
+              style: GoogleFonts.reenieBeanie(fontSize: 35),
+            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: CarrinhoController().listar(),
                 builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return Center(
-                        child: Text('Não foi possível conectar.'),
-                      );
-
-                    case ConnectionState.waiting:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-
-                    default:
-                      final dados = snapshot.requireData;
-                      if (dados.size > 0) {
-                        final itensCarrinho = dados.docs.map((doc) {
-                          final data = doc.data() as Map<String, dynamic>;
-                          return ItemCarrinho(
-                            itemId: data['item_id'],
-                            preco: data['preco'],
-                            quantidade: data['quantidade'],
-                          );
-                        }).toList();
-
-                        return ListView.builder(
-                          itemCount: itensCarrinho.length,
-                          itemBuilder: (context, index) {
-                            final item = itensCarrinho[index];
-                            return Card(
-                              child: ListTile(
-                                title: Text(
-                                  'Item: ${item.itemId}',
-                                  style: const TextStyle(fontSize: 22),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Quantidade: ${item.quantidade}',
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                    Text(
-                                      'Valor unitário: R\$ ${item.preco.toStringAsFixed(2)}',
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                    Text(
-                                      'Total: R\$ ${valorTotal.toStringAsFixed(2)}',
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.add),
-                                      onPressed: () {
-                                        carrinhoController
-                                            .adicionarItemCarrinho(
-                                                context, item);
-                                        setState(() {});
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.remove),
-                                      onPressed: () async {
-                                        // await carrinhoController
-                                        //     .removerItemCarrinho(
-                                        //         context, item.itemId);
-                                        // setState(() {});
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () async {
-                                        // await carrinhoController
-                                        //     .removerItemCarrinho(
-                                        //         context, item.itemId);
-                                        // setState(() {});
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        return Center(
-                          child: Text('Seu pedido está vazio.'),
-                        );
-                      }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Erro ao carregar os itens.'),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Text('Seu pedido está vazio.'),
+                    );
                   }
+
+                  final dados = snapshot.requireData;
+                  final itensCarrinho = dados.docs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>;
+                    return ItemCarrinho(
+                      itemId: data['item_id'],
+                      preco: data['preco'],
+                      quantidade: data['quantidade'],
+                    );
+                  }).toList();
+
+                  return ListView.builder(
+                    itemCount: itensCarrinho.length,
+                    itemBuilder: (context, index) {
+                      final item = itensCarrinho[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                            'Item: ${item.itemId}',
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Quantidade: ${item.quantidade}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                'Valor unitário: R\$ ${item.preco.toStringAsFixed(2)}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                'Total: R\$ ${(item.preco * item.quantidade).toStringAsFixed(2)}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () async {
+                                  await carrinhoController
+                                      .adicionarItemCarrinho(
+                                          context, item.itemId);
+                                  atualizarValorTotal();
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () async {
+                                  // await carrinhoController.removerItemCarrinho(
+                                  //     context, item.itemId);
+                                  atualizarValorTotal();
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  // await carrinhoController.removerItemCarrinho(
+                                  //     context, item.itemId);
+                                  atualizarValorTotal();
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
             const SizedBox(height: 20),
-            Text('Valor Total',
-                style: GoogleFonts.reenieBeanie(
-                  fontSize: 35,
-                )),
+            Text(
+              'Valor Total',
+              style: GoogleFonts.reenieBeanie(fontSize: 35),
+            ),
             const SizedBox(height: 10),
             Text(
-              "R\$ ${carrinhoController.calcularValorTotal()}",
+              "R\$ ${valorTotal.toStringAsFixed(2)}", 
               style: const TextStyle(fontSize: 30),
             ),
             const SizedBox(height: 20),
