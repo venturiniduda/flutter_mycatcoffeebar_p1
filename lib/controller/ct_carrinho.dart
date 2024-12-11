@@ -22,12 +22,9 @@ class CarrinhoController {
       var pedidoSnapshot =
           await selecionapedidos(LoginController().idUsuario()).first;
       final pedidoDocs = pedidoSnapshot.docs;
-      print('pedidoSnapshot.docs: ${pedidoSnapshot.docs}');
 
       final itemSnapshot = await CardapioController().detalhes(uidItem).first;
       final itemDocs = itemSnapshot.docs;
-      print('itemSnapshot.docs: ${itemSnapshot.docs}');
-      print('uidItem recebido: $uidItem');
 
       if (itemDocs.isEmpty) {
         erro(context, 'Item não encontrado!');
@@ -44,19 +41,16 @@ class CarrinhoController {
           dataHora: DateTime.now().toIso8601String(),
           itens: [
             ItemCarrinho(
+              nomeItem: item['nome'],
               itemId: item['uid'],
-              preco: item['preco'],
+              preco: item['valor'],
               quantidade: 1,
             ),
           ],
         );
 
-        await db
-            .collection('pedidos')
-            .doc(LoginController().idUsuario())
-            .set(novoCarrinho.toJson());
+        await db.collection('pedidos').add(novoCarrinho.toJson());
         sucesso(context, 'Novo pedido criado com sucesso!');
-        
       } else {
         final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
 
@@ -72,8 +66,9 @@ class CarrinhoController {
         } else {
           // Adicionar novo item ao carrinho
           carrinhoAtual.itens.add(ItemCarrinho(
+            nomeItem: item['nome'],
             itemId: item['uid'],
-            preco: item['preco'],
+            preco: item['valor'],
             quantidade: 1,
           ));
         }
@@ -81,9 +76,12 @@ class CarrinhoController {
         // Atualizar o pedido no Firestore
         await db
             .collection('pedidos')
-            .doc(LoginController().idUsuario())
-            .update(carrinhoAtual.toJson());
-        sucesso(context, 'Item adicionado ao pedido existente!');
+            .doc(pedidoDocs.first.id)
+            .update(carrinhoAtual.toJson())
+            .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
+            .catchError((e) => erro(context,
+                'Não foi possivel realizar a operação! ${pedidoDocs.first.id}'));
+        ;
       }
     } catch (e) {
       erro(context, 'Erro ao adicionar item ao carrinho: $e');
@@ -213,8 +211,9 @@ class CarrinhoController {
       // Extrair itens do pedido
       final itens = (pedido['itens'] as List<dynamic>).map((item) {
         return ItemCarrinho(
+          nomeItem: item['nome_item'],
           itemId: item['item_id'],
-          preco: (item['preco'] as num).toDouble(),
+          preco: (item['valor'] as num).toDouble(),
           quantidade: (item['quantidade'] as num).toInt(),
         );
       }).toList();

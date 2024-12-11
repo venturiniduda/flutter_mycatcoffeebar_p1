@@ -11,7 +11,7 @@ class Carrinho {
     required this.itens,
   });
 
-  double get valorTotalItm => 
+  double get valorTotalItm =>
       itens.fold(0, (total, item) => total + (item.preco * item.quantidade));
 
   Map<String, dynamic> toJson() {
@@ -36,11 +36,13 @@ class Carrinho {
 }
 
 class ItemCarrinho {
+  final String nomeItem;
   final String itemId;
   final double preco;
   late final int quantidade;
 
   ItemCarrinho({
+    required this.nomeItem,
     required this.itemId,
     required this.preco,
     required this.quantidade,
@@ -48,6 +50,7 @@ class ItemCarrinho {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      "nome_item": nomeItem,
       "item_id": itemId,
       "preco": preco,
       "quantidade": quantidade,
@@ -56,6 +59,7 @@ class ItemCarrinho {
 
   factory ItemCarrinho.fromJson(Map<String, dynamic> json) {
     return ItemCarrinho(
+      nomeItem: json['nome_item'],
       itemId: json['item_id'],
       preco: json['preco'].toDouble(),
       quantidade: json['quantidade'],

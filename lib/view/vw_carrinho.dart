@@ -84,13 +84,15 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                   }
 
                   final dados = snapshot.requireData;
-                  final itensCarrinho = dados.docs.map((doc) {
+                  final itensCarrinho = dados.docs.expand((doc) {
                     final data = doc.data() as Map<String, dynamic>;
-                    return ItemCarrinho(
-                      itemId: data['item_id'],
-                      preco: data['preco'],
-                      quantidade: data['quantidade'],
-                    );
+                    final itens = data['itens'] as List<dynamic>;
+                    return itens.map((item) => ItemCarrinho(
+                          nomeItem: item['nomeItem'],
+                          itemId: item['itemId'],
+                          preco: item['preco'],
+                          quantidade: item['quantidade'],
+                        ));
                   }).toList();
 
                   return ListView.builder(
@@ -100,7 +102,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                       return Card(
                         child: ListTile(
                           title: Text(
-                            'Item: ${item.itemId}',
+                            'Item: ${item.nomeItem}',
                             style: const TextStyle(fontSize: 22),
                           ),
                           subtitle: Column(
@@ -164,7 +166,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
             ),
             const SizedBox(height: 10),
             Text(
-               "R\$ ${valorTotal.toStringAsFixed(2)}",
+              "R\$ ${valorTotal.toStringAsFixed(2)}",
               style: const TextStyle(fontSize: 30),
             ),
             const SizedBox(height: 20),
