@@ -6,13 +6,6 @@ import 'package:flutter_mycatcoffeebar_p1/controller/ct_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
 import 'package:flutter_mycatcoffeebar_p1/view/components/mensagens.dart';
 
-// to-do:
-// lógica atualização status pedido
-// lógica zerar carrinho e valor total quando pedido for concluído
-// lógica alterar quantidade item
-// lógica adicionar: pegar uid automatico do pedido igual fazemos do usuario para depois adicionar na coleção
-// erro bad state - no element
-
 class CarrinhoController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
