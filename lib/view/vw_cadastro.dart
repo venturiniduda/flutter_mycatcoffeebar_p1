@@ -45,8 +45,8 @@ class _CadastroViewState extends State<CadastroView> {
                 children: [
                   Image.asset(
                     'lib/images/logo.png',
-                    height: MediaQuery.of(context).size.height * .35,
-                    width: MediaQuery.of(context).size.width * .10,
+                    height: 70,
+                    width: 70,
                   ),
                   Text(
                     'Cadastro',
