@@ -127,96 +127,61 @@ class CarrinhoController {
     }
   }
 
-  removerUnidItemCarrinho(context, uidItem) {
-    // // Buscar o pedidos do usuário
-    // var pedidos = selecionapedidos(LoginController().idUsuario());
+  Future<void> removerItemCarrinho(context, uidItem) async {
+    try {
+      final item;
+      var pedidoSnapshot =
+          await selecionapedidos(LoginController().idUsuario()).first;
+      final pedidoDocs = pedidoSnapshot.docs;
 
-    // if (pedidos.isEmpty) {
-    //   // Nenhum pedidos em andamento encontrado
-    //   erro(context, 'Nenhum pedido encontrado para o usuário.');
-    // } else {
-    //   // Obter os dados do pedidos atual
-    //   final carrinhoAtual = Carrinho.fromJson({
-    //     "uid": pedidos["uid"],
-    //     "status": pedidos["status"],
-    //     "data_hora": pedidos["data_hora"],
-    //     "itens": pedidos["itens"],
-    //   });
+      final itemSnapshot = await CardapioController().detalhes(uidItem).first;
+      final itemDocs = itemSnapshot.docs;
 
-    //   // Localizar o item no carrinho
-    //   var itemExistente =
-    //       carrinhoAtual.itens.firstWhere((item) => item.itemId == uidItem);
+      if (itemDocs.isEmpty) {
+        erro(context, 'Item não encontrado!');
+        return;
+      } else {
+        item = itemDocs.first.data() as Map<String, dynamic>;
+      }
 
-    //   if (itemExistente.requireData.size > 0) {
-    //     if (itemExistente.quantidade > 1) {
-    //       // Reduzir a quantidade do item
-    //       itemExistente.quantidade -= 1;
-    //     } else {
-    //       // Remover o item do carrinho
-    //       carrinhoAtual.itens.remove(itemExistente);
-    //     }
+      // Atualiza o carrinho existente
+      final carrinhoDoc = pedidoDocs.first;
+      final carrinhoData = carrinhoDoc.data() as Map<String, dynamic>;
+      final carrinhoAtual = Carrinho.fromJson(carrinhoData);
 
-    //     db
-    //         .collection('pedidos')
-    //         .doc(LoginController().idUsuario())
-    //         .update(carrinhoAtual.toJson())
-    //         .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
-    //         .catchError((e) =>
-    //             erro(context, 'Não foi possível adicionar o item ao pedido.'))
-    //         .whenComplete(() => Navigator.pop(context));
-    //   }
-    // }
+      // Verifica se o item já está no carrinho
+      final indexItemExistente =
+          carrinhoAtual.itens.indexWhere((e) => e.itemId == uidItem);
 
-    db
-        .collection('pedidos')
-        .doc(uidItem)
-        .delete()
-        .then((value) => sucesso(context, 'Produto removido com sucesso!'))
-        .catchError(
-            (e) => erro(context, 'Não foi possivel realizar a operação!'));
+      if (indexItemExistente >= 0) {
+        // Atualiza a quantidade do item existente
+        int quantidade = carrinhoAtual.itens[indexItemExistente].quantidade;
+
+        if (quantidade > 1) {
+          quantidade--;
+          carrinhoAtual.itens[indexItemExistente] = ItemCarrinho(
+            nomeItem: carrinhoAtual.itens[indexItemExistente].nomeItem,
+            itemId: carrinhoAtual.itens[indexItemExistente].itemId,
+            preco: carrinhoAtual.itens[indexItemExistente].preco,
+            quantidade: quantidade,
+          );
+        } else {
+          carrinhoAtual.itens.remove(item);
+        }
+      }
+
+      // Atualiza o carrinho no Firestore
+      await db
+          .collection('pedidos')
+          .doc(carrinhoDoc.id)
+          .update(carrinhoAtual.toJson());
+      sucesso(context, 'Item removido!');
+    } catch (e) {
+      erro(context, 'Erro ao remover item do carrinho: $e');
+    }
 
     calcularValorTotal();
   }
-
-  // Future<void> removerItemCarrinho(context, uidItem) async {
-  //   final uidUsuario = LoginController().idUsuario();
-
-  //   // Buscar o pedido do usuário
-  //   final pedidos = await selecionapedidos(uidUsuario);
-
-  //   if (pedidos == null) {
-  //     // Nenhum pedidos em andamento encontrado
-  //     throw Exception("Nenhum pedido encontrado para o usuário.");
-  //   } else {
-  //     // Obter os dados do pedidos atual
-  //     final carrinhoAtual = Carrinho.fromJson({
-  //       "uid": pedidos["uid"],
-  //       "status": pedidos["status"],
-  //       "data_hora": pedidos["data_hora"],
-  //       "itens": pedidos["itens"],
-  //     });
-
-  //     // Localizar o item no carrinho
-  //     final itemExistente =
-  //         carrinhoAtual.itens.firstWhere((item) => item.itemId == uidItem);
-
-  //     if (itemExistente != null) {
-  //       // Remover o item do carrinho
-  //       carrinhoAtual.itens.remove(itemExistente);
-
-  //       db
-  //           .collection('pedidos')
-  //           .doc(LoginController().idUsuario())
-  //           .update(carrinhoAtual.toJson())
-  //           .then((value) => sucesso(context, 'Item adicionado com sucesso!'))
-  //           .catchError((e) =>
-  //               erro(context, 'Não foi possível adicionar o item ao pedido.'))
-  //           .whenComplete(() => Navigator.pop(context));
-
-  //       calcularValorTotal();
-  //     }
-  //   }
-  // }
 
   Future<double> calcularValorTotal() async {
     try {

@@ -137,16 +137,16 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                               IconButton(
                                 icon: const Icon(Icons.remove),
                                 onPressed: () async {
-                                  // await carrinhoController.removerItemCarrinho(
-                                  //     context, item.itemId);
+                                  await carrinhoController.removerItemCarrinho(
+                                      context, item.itemId);
                                   atualizarValorTotal();
                                 },
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () async {
-                                  // await carrinhoController.removerItemCarrinho(
-                                  //     context, item.itemId);
+                                  await carrinhoController.removerItemCarrinho(
+                                      context, item.itemId);
                                   atualizarValorTotal();
                                 },
                               ),
@@ -171,14 +171,16 @@ class _CarrinhoViewState extends State<CarrinhoView> {
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Pedido confirmado! Obrigada.'),
-                    duration: Duration(seconds: 2),
-                    backgroundColor: Colors.black54,
-                  ),
-                );
+              onPressed: () async {
+                CarrinhoController().concluirPedido(context);
+                atualizarValorTotal();
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   const SnackBar(
+                //     content: Text('Pedido confirmado! Obrigada.'),
+                //     duration: Duration(seconds: 2),
+                //     backgroundColor: Colors.black54,
+                //   ),
+                // );
               },
               icon: const Icon(Icons.restaurant),
               style: ElevatedButton.styleFrom(iconColor: Colors.black),
