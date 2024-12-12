@@ -14,6 +14,8 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Center(
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.all(45.0),
           alignment: Alignment.center,
           child: Column(
