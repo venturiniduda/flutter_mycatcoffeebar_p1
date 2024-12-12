@@ -102,7 +102,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                       return Card(
                         child: ListTile(
                           title: Text(
-                            item.nomeItem,
+                            '${item.nomeItem}',
                             style: const TextStyle(fontSize: 22),
                           ),
                           subtitle: Column(
