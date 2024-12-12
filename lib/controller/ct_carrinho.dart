@@ -165,7 +165,7 @@ class CarrinhoController {
             quantidade: quantidade,
           );
         } else {
-          carrinhoAtual.itens.remove(item);
+          carrinhoAtual.itens.removeAt(indexItemExistente);
         }
       }
 
@@ -215,21 +215,21 @@ class CarrinhoController {
           quantidade: carrinhoAtual.itens[indexItemExistente].quantidade);
 
       if (indexItemExistente >= 0) {
-        // Atualiza a quantidade do item existente
-        carrinhoAtual.itens.remove(itemBye);
-      }
+        // Remove o item
+        carrinhoAtual.itens.removeAt(indexItemExistente);
 
-      // Atualiza o carrinho no Firestore
-      await db
-          .collection('pedidos')
-          .doc(carrinhoDoc.id)
-          .update(carrinhoAtual.toJson());
-      sucesso(context, 'Item removido!');
+        // Atualiza o carrinho no Firestore
+        await db
+            .collection('pedidos')
+            .doc(carrinhoDoc.id)
+            .update(carrinhoAtual.toJson());
+        sucesso(context, 'Item removido!');
+
+        calcularValorTotal();
+      }
     } catch (e) {
       erro(context, 'Erro ao remover item do carrinho: $e');
     }
-
-    calcularValorTotal();
   }
 
   Future<double> calcularValorTotal() async {
