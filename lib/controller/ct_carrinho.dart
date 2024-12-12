@@ -227,7 +227,8 @@ class CarrinhoController {
     // Retorna o pedido e seus itens
     var resultado = db
         .collection('pedidos')
-        .where('uid', isEqualTo: LoginController().idUsuario());
+        .where('uid', isEqualTo: LoginController().idUsuario())
+        .where('status', isNotEqualTo: 'Concluído');
     return resultado.snapshots();
   }
 }
