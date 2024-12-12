@@ -36,7 +36,7 @@ class Carrinho {
 }
 
 class ItemCarrinho {
-  final String nomeItem;
+  final dynamic nomeItem;
   final String itemId;
   final double preco;
   late final int quantidade;
@@ -61,7 +61,7 @@ class ItemCarrinho {
     return ItemCarrinho(
       nomeItem: json['nome_item'],
       itemId: json['item_id'],
-      preco: json['preco'].toDouble(),
+      preco: json['preco'],
       quantidade: json['quantidade'],
     );
   }

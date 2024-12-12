@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_mycatcoffeebar_p1/controller/ct_cardapio.dart';
 import 'package:flutter_mycatcoffeebar_p1/controller/ct_login.dart';
 import 'package:flutter_mycatcoffeebar_p1/model/md_carrinho.dart';
@@ -67,7 +66,14 @@ class CarrinhoController {
           );
         } else {
           // Adiciona o novo item ao carrinho
-          carrinhoAtual.itens.add(item);
+          var itemNew = ItemCarrinho(
+            nomeItem: item['nome'],
+            itemId: item['uid'],
+            preco: item['valor'],
+            quantidade: 1,
+          );
+
+          carrinhoAtual.itens.add(itemNew);
         }
 
         // Atualiza o carrinho no Firestore
@@ -176,6 +182,56 @@ class CarrinhoController {
     calcularValorTotal();
   }
 
+  Future<void> removerItemFullCarrinho(context, uidItem) async {
+    try {
+      final item;
+      var pedidoSnapshot =
+          await selecionapedidos(LoginController().idUsuario()).first;
+      final pedidoDocs = pedidoSnapshot.docs;
+
+      final itemSnapshot = await CardapioController().detalhes(uidItem).first;
+      final itemDocs = itemSnapshot.docs;
+
+      if (itemDocs.isEmpty) {
+        erro(context, 'Item não encontrado!');
+        return;
+      } else {
+        item = itemDocs.first.data() as Map<String, dynamic>;
+      }
+
+      // Atualiza o carrinho existente
+      final carrinhoDoc = pedidoDocs.first;
+      final carrinhoData = carrinhoDoc.data() as Map<String, dynamic>;
+      final carrinhoAtual = Carrinho.fromJson(carrinhoData);
+
+      // Verifica se o item já está no carrinho
+      final indexItemExistente =
+          carrinhoAtual.itens.indexWhere((e) => e.itemId == uidItem);
+
+      var itemBye = ItemCarrinho(
+          nomeItem: carrinhoAtual.itens[indexItemExistente].nomeItem,
+          itemId: carrinhoAtual.itens[indexItemExistente].itemId,
+          preco: carrinhoAtual.itens[indexItemExistente].preco,
+          quantidade: carrinhoAtual.itens[indexItemExistente].quantidade);
+
+      if (indexItemExistente >= 0) {
+        // Atualiza a quantidade do item existente
+        carrinhoAtual.itens.remove(itemBye);
+      }
+
+      // Atualiza o carrinho no Firestore
+      await db
+          .collection('pedidos')
+          .doc(carrinhoDoc.id)
+          .update(carrinhoAtual.toJson());
+      sucesso(context, 'Item removido!');
+    } catch (e) {
+      erro(context, 'Erro ao remover item do carrinho: $e');
+    }
+
+    calcularValorTotal();
+  }
+
   Future<double> calcularValorTotal() async {
     try {
       // Buscar o pedido do usuário
@@ -188,15 +244,16 @@ class CarrinhoController {
         return 0.0;
       }
 
-      // Extrair dados do primeiro documento
-      final pedido = pedidoDocs.first.data() as Map<String, dynamic>;
+      final pedidoDoc = pedidoDocs.first;
+      final pedidoData = pedidoDoc.data() as Map<String, dynamic>;
+      final pedidoAtual = Carrinho.fromJson(pedidoData);
 
-      if (pedido['itens'] == null || (pedido['itens'] as List).isEmpty) {
+      if ((pedidoAtual.itens as List).isEmpty) {
         return 0.0; // Nenhum item no pedido
       }
 
       // Extrair itens do pedido
-      final itens = (pedido['itens'] as List<dynamic>).map((item) {
+      final itens = (pedidoAtual.itens as List<dynamic>).map((item) {
         return ItemCarrinho(
           nomeItem: item['nome_item'],
           itemId: item['item_id'],

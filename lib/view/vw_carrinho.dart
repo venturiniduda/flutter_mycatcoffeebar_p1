@@ -14,24 +14,23 @@ class CarrinhoView extends StatefulWidget {
 }
 
 class _CarrinhoViewState extends State<CarrinhoView> {
-  double valorTotal = 0.0; // Armazena o valor total
+  double valorTotal = 0.0;
 
   @override
   void initState() {
     super.initState();
-    atualizarValorTotal(); // Atualiza o valor total ao iniciar a tela
+    atualizarValorTotal();
   }
 
-  /// Atualiza o valor total do carrinho
   Future<void> atualizarValorTotal() async {
     try {
       final total = await carrinhoController.calcularValorTotal();
       setState(() {
-        valorTotal = total; // Atualiza o estado com o valor calculado
+        valorTotal = total;
       });
     } catch (e) {
       setState(() {
-        valorTotal = 0.0; // Em caso de erro, define o total como 0
+        valorTotal = 0.0;
       });
     }
   }
@@ -67,32 +66,35 @@ class _CarrinhoViewState extends State<CarrinhoView> {
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: CarrinhoController().listar(),
+                stream: carrinhoController.listar(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.hasError) {
-                    return Center(
+                    return const Center(
                       child: Text('Erro ao carregar os itens.'),
                     );
                   } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text('Seu pedido está vazio.'),
                     );
                   }
 
-                  final dados = snapshot.requireData;
-                  final itensCarrinho = dados.docs.expand((doc) {
+                  final itemDocs = snapshot.data!.docs;
+                  final itensCarrinho = itemDocs.expand((doc) {
                     final data = doc.data() as Map<String, dynamic>;
-                    final itens = data['itens'] as List<dynamic>;
-                    return itens.map((item) => ItemCarrinho(
-                          nomeItem: item['nomeItem'],
-                          itemId: item['itemId'],
-                          preco: item['preco'],
-                          quantidade: item['quantidade'],
-                        ));
+                    final itens =
+                        (data['itens'] as List<dynamic>? ?? []).map((item) {
+                      return ItemCarrinho(
+                        nomeItem: item['nome_item'] ?? 'Item Desconhecido',
+                        itemId: item['item_id'] ?? '',
+                        preco: (item['preco'] as num?)?.toDouble() ?? 0.0,
+                        quantidade: (item['quantidade'] as num?)?.toInt() ?? 0,
+                      );
+                    });
+                    return itens;
                   }).toList();
 
                   return ListView.builder(
@@ -102,7 +104,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                       return Card(
                         child: ListTile(
                           title: Text(
-                            '${item.nomeItem}',
+                            item.nomeItem,
                             style: const TextStyle(fontSize: 22),
                           ),
                           subtitle: Column(
@@ -117,7 +119,7 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                                 style: const TextStyle(fontSize: 14),
                               ),
                               Text(
-                                'Total: R\$ ${(item.preco * item.quantidade).toStringAsFixed(2)}',
+                                'Total: R\$ ${(item.quantidade * item.preco).toStringAsFixed(2)}',
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],
@@ -145,8 +147,9 @@ class _CarrinhoViewState extends State<CarrinhoView> {
                               IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () async {
-                                  await carrinhoController.removerItemCarrinho(
-                                      context, item.itemId);
+                                  await carrinhoController
+                                      .removerItemFullCarrinho(
+                                          context, item.itemId);
                                   atualizarValorTotal();
                                 },
                               ),
@@ -172,15 +175,8 @@ class _CarrinhoViewState extends State<CarrinhoView> {
             const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () async {
-                CarrinhoController().concluirPedido(context);
+                await carrinhoController.concluirPedido(context);
                 atualizarValorTotal();
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   const SnackBar(
-                //     content: Text('Pedido confirmado! Obrigada.'),
-                //     duration: Duration(seconds: 2),
-                //     backgroundColor: Colors.black54,
-                //   ),
-                // );
               },
               icon: const Icon(Icons.restaurant),
               style: ElevatedButton.styleFrom(iconColor: Colors.black),
