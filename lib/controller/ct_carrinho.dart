@@ -228,7 +228,7 @@ class CarrinhoController {
     var resultado = db
         .collection('pedidos')
         .where('uid', isEqualTo: LoginController().idUsuario())
-        .where('status', isNotEqualTo: 'Concluído');
+        .where('status', isEqualTo: "Preparando");
     return resultado.snapshots();
   }
 }
