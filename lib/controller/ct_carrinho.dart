@@ -247,26 +247,11 @@ class CarrinhoController {
       final pedidoDoc = pedidoDocs.first;
       final pedidoData = pedidoDoc.data() as Map<String, dynamic>;
       final pedidoAtual = Carrinho.fromJson(pedidoData);
+      double total = 0.00;
 
-      if ((pedidoAtual.itens as List).isEmpty) {
-        return 0.0; // Nenhum item no pedido
+      for (final item in pedidoAtual.itens) {
+        total = total + (item.preco * item.quantidade);
       }
-
-      // Extrair itens do pedido
-      final itens = (pedidoAtual.itens as List<dynamic>).map((item) {
-        return ItemCarrinho(
-          nomeItem: item['nome_item'],
-          itemId: item['item_id'],
-          preco: (item['valor'] as num).toDouble(),
-          quantidade: (item['quantidade'] as num).toInt(),
-        );
-      }).toList();
-
-      // Calcular o total
-      final total = itens.fold(0.0, (somaT, item) {
-        return somaT + (item.preco * item.quantidade);
-      });
-
       return total;
     } catch (e) {
       return 0.0;

@@ -36,6 +36,8 @@ class _DetalhesViewState extends State<DetalhesView> {
               child: Image.asset(
                 item['imagem'],
                 fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
               ),
             ),
             SizedBox(height: 10),
