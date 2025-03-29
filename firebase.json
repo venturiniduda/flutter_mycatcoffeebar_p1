@@ -34,9 +34,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "firestore": {
-    "rules": "firebase_options.dart",
-    "indexes": "firebase_options.dart"
   }
 }
